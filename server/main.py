@@ -7,10 +7,27 @@ filedrop_db = get_db()
 users = filedrop_db['users']
 files = filedrop_db['files']
 
+def userData(userQuery):
+    user = userQuery[0]
+    fileQuery = files.find({"ownerID": user.username})
+    return json.dumps({
+        "status": "200",
+        "user": user,
+        "files": fileQuery
+    })
 
 @app.route('/user/login', methods = ['POST'])
 def login():
-    return 'login'
+    userQuery = users.find({"username": request.form['username']})
+    if len(userQuery) > 0:
+        return userData(userQuery)
+    emailQuery = users.find({"email": request.form['username']})
+    if len(emailQuery) > 0:
+        return userData(emailQuery)
+    return json.dumps({
+        "status": "404",
+        "message": "Incorrect username or password"
+    })
 
 @app.route('/user/create', methods = ['POST'])
 def user_create():
