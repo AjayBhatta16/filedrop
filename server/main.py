@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from db import get_db
 import json
 
@@ -15,6 +15,10 @@ def userData(userQuery):
         "user": user,
         "files": fileQuery
     })
+
+@app.route('/')
+def send_index():
+    return render_template('index.html')
 
 @app.route('/user/login', methods = ['POST'])
 def login():
@@ -33,11 +37,10 @@ def login():
 def user_create():
     # TODO: Validate username and email
     # TODO: Implement password encryption
-    let newUser = {
+    newUser = {
         "username": request.form['username'],
         "email": request.form['email'],
         "password": request.form['password'],
-        "files": []
     }
     users.insert_one(newUser)
     return json.dumps({
