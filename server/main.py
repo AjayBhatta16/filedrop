@@ -21,6 +21,22 @@ def userData(userQuery):
 def send_index():
     return render_template('index.html')
 
+@app.route('/login')
+def send_login_page():
+    return render_template('login.html')
+
+@app.route('/signup')
+def send_signup_page():
+    return render_template('signup.html')
+
+@app.route('/dashboard')
+def send_dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/newfile')
+def send_create_page():
+    return render_template('newfile.html')
+
 @app.route('/user/login', methods = ['POST'])
 def login():
     userQuery = users.find({"username": request.form['username']})

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+body, html {
+    background-color: black;
+}
+.title-text {
+    font-family: 'Comfortaa', cursive;
+}
+input[type="text"] {
+    line-height: 1.5;
+}
