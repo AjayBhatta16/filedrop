@@ -18,6 +18,37 @@
     <title>Sign Up | FileDrop</title>
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
+        <!-- Brand -->
+        <a class="navbar-brand title-text" href="/">
+            <img src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="30" height="30">
+            &nbsp;FileDrop
+        </a>
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container text-white py-5 mt-3 text-center">
+        <img class="mb-4" src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="100" height="100">
+        <h1 class="title-text">Sign Up</h1>
+        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="username" name="username" type="text" placeholder="Username"><br>
+        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="email" name="email" type="text" placeholder="Email Address"><br>
+        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="password" name="password" type="password" placeholder="Password"><br>
+        <input class="px-2 py-1 mt-4 mb-3 bg-dark text-white acc-input" id="confirm" name="confirm" type="password" placeholder="Confirm Password"><br>
+        <small class="text-danger text-left mt-3 font-weight-light" id="error-text"></small><br>
+        <button class="btn btn-primary mt-3">Register</button>
+    </div>
 </body>
 </html>

@@ -8,3 +8,8 @@ body, html {
 input[type="text"] {
     line-height: 1.5;
 }
+
+.acc-input {
+    border: 1px solid #bbc;
+    border-radius: 5px;
+}
