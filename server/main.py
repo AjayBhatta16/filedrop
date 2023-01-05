@@ -3,6 +3,7 @@ from db import get_db
 import json
 
 app = Flask(__name__)
+
 filedrop_db = get_db()
 users = filedrop_db['users']
 files = filedrop_db['files']
@@ -57,4 +58,6 @@ def get_file(fileID):
     return 'get_file %s' % fileID
 
 if __name__ == '__main__':
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     app.run()

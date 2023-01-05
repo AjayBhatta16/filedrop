@@ -4,9 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}">
     <title>Home | FileDrop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+        body, html {
+            background-color: black;
+        }
+        .title-text {
+            font-family: 'Comfortaa', cursive;
+        }
+        input[type="text"] {
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    <h1>title page</h1>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
+        <!-- Brand -->
+        <a class="navbar-brand title-text" href="#">
+            <img src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="30" height="30">
+            &nbsp;FileDrop
+        </a>
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container text-white p-5 mt-5 text-center">
+        <img class="mb-4" src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="100" height="100">
+        <h1 class="title-text">Download now</h1>
+        <p class="title-text mb-5">Enter a code to download a file anonymously</p>
+        <input class="px-2 py-1" id="filecode" name="filecode" type="text" placeholder="Enter your 8-Digit code here">
+        <button class="btn btn-primary">Go</button>
+    </div>
 </body>
 </html>
