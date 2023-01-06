@@ -8,13 +8,20 @@ filedrop_db = get_db()
 users = filedrop_db['users']
 files = filedrop_db['files']
 
-def userData(userQuery):
-    user = userQuery[0]
-    fileQuery = files.find({"ownerID": user.username})
+def userData(username):
+    fileQuery = files.find({"ownerID": username})
+    userFiles = []
+    for file in fileQuery:
+        userFiles.append(json.dumps({
+            "id": file['id'],
+            "name": file['name'],
+            "type": file['type'],
+            "expDate": file['expDate']
+        }))
     return json.dumps({
         "status": "200",
-        "user": user,
-        "files": fileQuery
+        "username": username,
+        "files": userFiles
     })
 
 @app.route('/')
@@ -41,12 +48,17 @@ def send_create_page():
 def login():
     dataStr = request.data.decode()
     data = json.loads(dataStr)
+    username = ""
     userQuery = users.find({"username": data['username']})
-    if len(userQuery) > 0:
-        return userData(userQuery)
+    for user in userQuery:
+        if user['password'] == data['password']:
+            username = user['username']
     emailQuery = users.find({"email": data['username']})
-    if len(emailQuery) > 0:
-        return userData(emailQuery)
+    for user in emailQuery:
+        if user['password'] == data['password']:
+            username = user['username']
+    if len(username) > 0:
+        return userData(username)
     return json.dumps({
         "status": "404",
         "message": "Incorrect username or password"
@@ -54,7 +66,6 @@ def login():
 
 @app.route('/user/create', methods = ['POST'])
 def user_create():
-    # TODO: Validate username and email
     # TODO: Implement password encryption
     dataStr = request.data.decode()
     data = json.loads(dataStr)

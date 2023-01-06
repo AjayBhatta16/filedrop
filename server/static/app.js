@@ -50,6 +50,40 @@ app.controller("signupCtrl", ['$scope', '$http', function($scope, $http) {
     }
 }])
 
+app.controller("loginCtrl", ['$scope', '$http', function($scope, $http) {
+    $scope.errorText = ""
+    $scope.username = ""
+    $scope.password = ""
+    $scope.handleClick = () => {
+        $scope.errorText = ""
+        if($scope.username.length == 0) {
+            $scope.errorText = "Username is required"
+            return
+        }
+        if($scope.password.length == 0) {
+            $scope.errorText = "Password is required"
+            return
+        }
+        let data = {
+            "username": $scope.username,
+            "password": $scope.password
+        }
+        $http.post('/user/login', data)
+            .then(res => {
+                console.log(res.data.status)
+                if(res.data.status == "200") {
+                    sessionStorage.setItem("currentUser", JSON.stringify({
+                        username: res.data.username,
+                        files: res.data.files
+                    }))
+                    window.location = '/dashboard'
+                } else {
+                    $scope.errorText = res.data.message
+                }
+            })
+    }
+}])
+
 app.controller("dashboardCtrl", ['$scope', function($scope) {
     $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
 }])
