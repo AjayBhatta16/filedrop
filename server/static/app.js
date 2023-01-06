@@ -1,9 +1,18 @@
 let app = angular.module("MyApp", [])
 
 app.config(['$interpolateProvider', function($interpolateProvider) {
-    $interpolateProvider.startSymbol('[[');
-    $interpolateProvider.endSymbol(']]');
-}]);
+    $interpolateProvider.startSymbol('[[')
+    $interpolateProvider.endSymbol(']]')
+}])
+
+app.controller("homeCtrl", ['$scope', function($scope) {
+    $scope.currentUser = sessionStorage.getItem('currentUser')
+    $scope.logout = () => {
+        console.log('logout')
+        sessionStorage.removeItem('currentUser')
+        window.location = '/'
+    }
+}])
 
 app.controller("signupCtrl", ['$scope', '$http', function($scope, $http) {
     $scope.errorText = ""
@@ -85,5 +94,19 @@ app.controller("loginCtrl", ['$scope', '$http', function($scope, $http) {
 }])
 
 app.controller("dashboardCtrl", ['$scope', function($scope) {
+    $scope.logout = () => {
+        console.log('logout')
+        sessionStorage.removeItem('currentUser')
+        window.location = '/'
+    }
+    $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
+}])
+
+app.controller("newfileCtrl", ['$scope', function($scope) {
+    $scope.logout = () => {
+        console.log('logout')
+        sessionStorage.removeItem('currentUser')
+        window.location = '/'
+    }
     $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
 }])

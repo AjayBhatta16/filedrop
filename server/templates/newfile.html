@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ url_for('static', filename = 'app.js') }}"></script>    
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -17,7 +18,31 @@
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
     <title>New File | FileDrop</title>
 </head>
-<body>
-    
+<body ng-app="MyApp" ng-controller="newfileCtrl">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
+        <!-- Brand -->
+        <a class="navbar-brand title-text" href="/">
+            <img src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="30" height="30">
+            &nbsp;FileDrop
+        </a>
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/newfile">New File</a>
+                </li>
+                <li class="nav-item">
+                    <span role="button" class="nav-link float-left" ng-click="logout()">Log Out</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </body>
 </html>
