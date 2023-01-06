@@ -39,10 +39,12 @@ def send_create_page():
 
 @app.route('/user/login', methods = ['POST'])
 def login():
-    userQuery = users.find({"username": request.form['username']})
+    dataStr = request.data.decode()
+    data = json.loads(dataStr)
+    userQuery = users.find({"username": data['username']})
     if len(userQuery) > 0:
         return userData(userQuery)
-    emailQuery = users.find({"email": request.form['username']})
+    emailQuery = users.find({"email": data['username']})
     if len(emailQuery) > 0:
         return userData(emailQuery)
     return json.dumps({
@@ -54,15 +56,29 @@ def login():
 def user_create():
     # TODO: Validate username and email
     # TODO: Implement password encryption
+    dataStr = request.data.decode()
+    data = json.loads(dataStr)
+    usernameQuery = users.find({"username": data['username']})
+    if len(list(usernameQuery)) > 0:
+        return json.dumps({
+            "status": 400,
+            "message": "An account with this username already exists"
+        })
+    emailQuery = users.find({"email": data['email']})
+    if len(list(emailQuery)) > 0:
+        return json.dumps({
+            "status": 400,
+            "message": "An account with this email already exists"
+        })
     newUser = {
-        "username": request.form['username'],
-        "email": request.form['email'],
-        "password": request.form['password'],
+        "username": data['username'],
+        "email": data['email'],
+        "password": data['password'],
     }
     users.insert_one(newUser)
     return json.dumps({
         "status": "200",
-        "data": newUser
+        "username": newUser['username']
     })
 
 @app.route('/file/upload', methods = ['POST'])

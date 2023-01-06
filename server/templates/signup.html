@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ url_for('static', filename = 'app.js') }}"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
     <title>Sign Up | FileDrop</title>
 </head>
-<body>
+<body ng-app="MyApp">
     <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
         <!-- Brand -->
         <a class="navbar-brand title-text" href="/">
@@ -40,15 +41,15 @@
             </ul>
         </div>
     </nav>
-    <div class="container text-white py-5 mt-3 text-center">
+    <div class="container text-white py-5 mt-3 text-center" ng-controller="signupCtrl">
         <img class="mb-4" src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="100" height="100">
         <h1 class="title-text">Sign Up</h1>
-        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="username" name="username" type="text" placeholder="Username"><br>
-        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="email" name="email" type="text" placeholder="Email Address"><br>
-        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="password" name="password" type="password" placeholder="Password"><br>
-        <input class="px-2 py-1 mt-4 mb-3 bg-dark text-white acc-input" id="confirm" name="confirm" type="password" placeholder="Confirm Password"><br>
-        <small class="text-danger text-left mt-3 font-weight-light" id="error-text"></small><br>
-        <button class="btn btn-primary mt-3">Register</button>
+        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="username" ng-model="username" type="text" placeholder="Username"><br>
+        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="email" ng-model="email" type="text" placeholder="Email Address"><br>
+        <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="password" ng-model="password" type="password" placeholder="Password"><br>
+        <input class="px-2 py-1 mt-4 mb-3 bg-dark text-white acc-input" id="confirm" ng-model="confirm" type="password" placeholder="Confirm Password"><br>
+        <small class="text-danger text-left mt-3 font-weight-light" id="error-text">[[errorText]]</small><br>
+        <button class="btn btn-primary mt-3" ng-click="handleClick()">Register</button>
     </div>
 </body>
 </html>

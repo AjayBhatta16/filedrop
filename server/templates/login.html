@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="{{ url_for('static', filename = 'app.js') }}"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -40,7 +41,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container text-white p-5 mt-5 text-center">
+    <div class="container text-white p-5 mt-5 text-center" ng-app="MyApp" ng-controller="loginCtrl">
         <img class="mb-4" src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="100" height="100">
         <h1 class="title-text">Log In</h1>
         <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="username" name="username" type="text" placeholder="Username or email"><br>
