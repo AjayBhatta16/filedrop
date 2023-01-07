@@ -13,3 +13,9 @@ input[type="text"] {
     border: 1px solid #bbc;
     border-radius: 5px;
 }
+
+.custom-file {
+    width: 50%;
+    max-width: 300px;
+    min-width: 200px;
+}

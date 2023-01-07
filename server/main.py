@@ -1,8 +1,13 @@
 from flask import Flask, request, render_template
+from werkzeug.utils import secure_filename
 from db import get_db
+
 import json
+import string
+import random
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'userfiles'
 
 filedrop_db = get_db()
 users = filedrop_db['users']
@@ -23,6 +28,16 @@ def userData(username):
         "username": username,
         "files": userFiles
     })
+
+def generateID():
+    return ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
+
+def newFileID():
+    id = generateID()
+    fileQuery = files.find({"id": id})
+    if len(list(fileQuery)) > 0:
+        return newFileID()
+    return id 
 
 @app.route('/')
 def send_index():
@@ -94,7 +109,34 @@ def user_create():
 
 @app.route('/file/upload', methods = ['POST'])
 def file_upload():
-    return 'file_upload'
+    if 'file' not in request.files:
+        print('No file part')
+        return json.dumps({
+            "status": "400",
+            "message": "no file part"
+        })
+    f = request.files['file']
+    if f.filename == '':
+        print('No selected file')
+    else:
+        print('File received: ', f.filename)
+    print("file received")
+    dataStr = request.data.decode()
+    data = json.loads(data)
+    print("JSON data received")
+    id = newFileID()
+    f.save(secure_filename(id+"."+data['type']))
+    newFile = {
+        "id": id,
+        "type": data['type'],
+        "expDate": data['expDate'],
+        "ownerID": data['ownerID']
+    }
+    files.insert_one(newFile)
+    return json.dumps({
+        "status": 200,
+        "fileID": id
+    })
 
 @app.route('/<fileID>', methods = ['GET', 'DELETE'])
 def get_file(fileID):

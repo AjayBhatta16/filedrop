@@ -44,5 +44,22 @@
             </ul>
         </div>
     </nav>
+    <div class="container text-white p-5 mt-5 text-center">
+        <h1 class="title-text">Upload a File</h1>
+        <div class="custom-file text-left mt-3 mb-4">
+            <input class="custom-file-input" name="file" id="fileInput" type="file">
+            <label class="custom-file-label" for="file">Choose file</label>
+        </div>
+        <h6 class="title-text mt-5">Set the expiration date:</h6>
+        <input class="mt-2 mb-3" type="date" ng-model="expDate"><br>
+        <small class="text-danger text-left mt-3 font-weight-light" id="error-text">[[errorText]]</small><br>
+        <button class="btn btn-primary mt-5" ng-click="handleUpload()">Upload</button>
+    </div>
+    <script>
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop()
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName)
+        })
+    </script>
 </body>
 </html>

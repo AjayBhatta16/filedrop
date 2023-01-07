@@ -102,11 +102,51 @@ app.controller("dashboardCtrl", ['$scope', function($scope) {
     $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
 }])
 
-app.controller("newfileCtrl", ['$scope', function($scope) {
+app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
     $scope.logout = () => {
         console.log('logout')
         sessionStorage.removeItem('currentUser')
         window.location = '/'
     }
     $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
+    $scope.expDate = null
+    $scope.errorText = ""
+    $scope.handleUpload = () => {
+        $scope.errorText = ""
+        let file = document.getElementById('fileInput').files[0]
+        console.log(file)
+        console.log($scope.expDate)
+        if(!file) {
+            $scope.errorText = "Please select a file to upload"
+            return 
+        }
+        if(!$scope.expDate) {
+            $scope.errorText = "Please select an expiration date"
+            return 
+        }
+        $http.post('/file/upload', {
+            expDate: $scope.expDate,
+            name: file.name,
+            type: file.type.split('/')[1],
+            ownerID: $scope.user.username,
+            file: file
+          }, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+          })
+            .then(res => {
+                console.log(res)
+                if(res.data.status == "200") {
+                    let newFile = {
+                        expDate: $scope.expDate,
+                        name: file.name,
+                        type: file.type.split('/')[1],
+                        id: res.data.id
+                    }
+                    $scope.user.files.push(newFile)
+                    sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
+                    window.location = '/dashboard'
+                }
+            })
+    }
 }])
