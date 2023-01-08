@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file, abort
 from werkzeug.utils import secure_filename
 from db import get_db
 
@@ -143,7 +143,14 @@ def file_upload():
 
 @app.route('/<fileID>', methods = ['GET', 'DELETE'])
 def get_file(fileID):
-    return 'get_file %s' % fileID
+    if request.method == 'GET':
+        fileCode = ""
+        fileQuery = files.find({"id": fileID})
+        for file in fileQuery:
+            fileCode = file['id'] + "." + file['type']
+        if len(fileCode) == 0:
+            abort(404)
+        return send_file(app.config['UPLOAD_FOLDER']+"/"+fileCode)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True

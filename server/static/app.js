@@ -5,12 +5,54 @@ app.config(['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]')
 }])
 
-app.controller("homeCtrl", ['$scope', function($scope) {
+app.controller("homeCtrl", ['$scope', '$http', function($scope, $http) {
     $scope.currentUser = sessionStorage.getItem('currentUser')
     $scope.logout = () => {
         console.log('logout')
         sessionStorage.removeItem('currentUser')
         window.location = '/'
+    }
+    $scope.errorText = ""
+    $scope.filecode = ""
+    $scope.handleChange = () => {
+        $scope.filecode = $scope.filecode.toUpperCase()
+    }
+    $scope.handleClick = () => {
+        $scope.errorText = ""
+        if($scope.filecode.length != 8) {
+            $scope.errorText = "Please enter an 8-Digit File code"
+            return
+        }
+        if(!/^[A-Za-z0-9]*$/.test($scope.filecode)) {
+            $scope.errorText = "Please enter letters and numbers only"
+            return 
+        }
+        $http({
+            method: 'GET',
+            url: `/${$scope.filecode}`,
+        }).then(res => {
+            console.log(res)
+            var headers = res.headers();
+            var filename = headers['x-filename'];
+            var contentType = headers['content-type'];
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([res.data], { type: contentType });
+                var url = window.URL.createObjectURL(blob);
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", $scope.filecode);
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            } 
+        }).catch(err => {
+            $scope.errorText = "File code not found"
+        })
     }
 }])
 
