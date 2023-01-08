@@ -124,16 +124,26 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
             $scope.errorText = "Please select an expiration date"
             return 
         }
-        $http.post('/file/upload', {
-            expDate: $scope.expDate,
-            name: file.name,
-            type: file.type.split('/')[1],
-            ownerID: $scope.user.username,
-            file: file
-          }, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-          })
+        $http({
+            method: 'POST',
+            url: '/file/upload',
+            headers: {'Content-Type': undefined},
+            transformRequest: data => {
+                let formData = new FormData()
+                formData.append("model", angular.toJson(data.model))
+                formData.append("file", data.file)
+                return formData
+            },
+            data: {
+                model: {
+                    expDate: $scope.expDate,
+                    name: file.name,
+                    type: file.type.split('/')[1],
+                    ownerID: $scope.user.username,
+                },
+                file: file
+            }
+        })
             .then(res => {
                 console.log(res)
                 if(res.data.status == "200") {

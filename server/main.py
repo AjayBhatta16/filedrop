@@ -39,6 +39,10 @@ def newFileID():
         return newFileID()
     return id 
 
+def get_ext(filename):
+    parts = filename.split(".")
+    return parts[len(parts) - 1]
+
 @app.route('/')
 def send_index():
     return render_template('index.html')
@@ -120,17 +124,16 @@ def file_upload():
         print('No selected file')
     else:
         print('File received: ', f.filename)
-    print("file received")
-    dataStr = request.data.decode()
-    data = json.loads(data)
-    print("JSON data received")
     id = newFileID()
-    f.save(secure_filename(id+"."+data['type']))
+    f.save(app.config['UPLOAD_FOLDER']+"/"+secure_filename(id+"."+get_ext(f.filename)))
+    print("file data: ", request.form['model'])
+    data = json.loads(request.form['model'])
     newFile = {
         "id": id,
         "type": data['type'],
         "expDate": data['expDate'],
-        "ownerID": data['ownerID']
+        "ownerID": data['ownerID'],
+        "name": data['name']
     }
     files.insert_one(newFile)
     return json.dumps({
