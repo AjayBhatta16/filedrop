@@ -122,7 +122,7 @@ app.controller("loginCtrl", ['$scope', '$http', function($scope, $http) {
     }
 }])
 
-app.controller("dashboardCtrl", ['$scope', function($scope) {
+app.controller("dashboardCtrl", ['$scope', '$http', function($scope, $http) {
     $scope.logout = () => {
         console.log('logout')
         sessionStorage.removeItem('currentUser')
@@ -130,8 +130,16 @@ app.controller("dashboardCtrl", ['$scope', function($scope) {
     }
     $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
     $scope.files = $scope.user.files.map(file => JSON.parse(file))
-    $scope.deleteFile = id => {
-        console.log("Delete", id)
+    $scope.deleteFile = (id, name) => {
+        if(confirm(`Delete ${name} from our servers? (This action cannot be undone)`)) {
+            $http.delete(`/${id}`)
+                .then(res => {
+                    alert(res.data.message)
+                    $scope.files = $scope.files.filter(file => file.id != id)
+                    $scope.user.files = [...$scope.files].map(file => JSON.stringify(file))
+                    sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
+                })
+        }
     }
     $scope.copyFileCode = id => {
         navigator.clipboard.writeText(id)
@@ -147,6 +155,15 @@ app.controller("dashboardCtrl", ['$scope', function($scope) {
     $scope.UIDateString = dateStr => {
         let date = new Date(dateStr)
         return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
+    }
+    $scope.scrollToRight = (event) => {
+        event.target.scroll({
+            left: event.target.scrollWidth,
+            behavior: 'smooth'
+        })
+    }
+    $scope.scrollBack = (event) => {
+        event.target.scroll({left: 0})
     }
 }])
 
@@ -201,7 +218,7 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
                         type: file.type.split('/')[1],
                         id: res.data.id
                     }
-                    $scope.user.files.push(newFile)
+                    $scope.user.files.push(JSON.stringify(newFile))
                     sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
                     window.location = '/dashboard'
                 }

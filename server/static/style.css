@@ -49,3 +49,15 @@ svg {
 .icon-button:hover {
     background-color: #555;
 }
+
+.file-name {
+    overflow-x: scroll;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    height: 2rem;
+}
+
+.file-name::-webkit-scrollbar {
+    display: none;
+}

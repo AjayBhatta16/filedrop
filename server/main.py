@@ -157,13 +157,14 @@ def get_file(fileID):
         fileQuery = files.find({"id": fileID})
         for file in fileQuery:
             fileCode = file['id'] + "." + file['type']
+            fileName = file['name']
         if len(fileCode) == 0:
             abort(404)
         os.remove(app.config['UPLOAD_FOLDER']+"/"+fileCode)
         files.delete_one({"id": fileID})
         return json.dumps({
             "status": 200,
-            "message": "File "+fileCode+" has been deleted."
+            "message": "File "+fileName+" has been deleted."
         })
 
 if __name__ == '__main__':
