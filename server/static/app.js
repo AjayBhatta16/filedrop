@@ -31,25 +31,12 @@ app.controller("homeCtrl", ['$scope', '$http', function($scope, $http) {
             method: 'GET',
             url: `/${$scope.filecode}`,
         }).then(res => {
-            console.log(res)
-            var headers = res.headers();
-            var filename = headers['x-filename'];
-            var contentType = headers['content-type'];
-            var linkElement = document.createElement('a');
-            try {
-                var blob = new Blob([res.data], { type: contentType });
-                var url = window.URL.createObjectURL(blob);
-                linkElement.setAttribute('href', url);
-                linkElement.setAttribute("download", $scope.filecode);
-                var clickEvent = new MouseEvent("click", {
-                    "view": window,
-                    "bubbles": true,
-                    "cancelable": false
-                });
-                linkElement.dispatchEvent(clickEvent);
-            } catch (ex) {
-                console.log(ex);
-            } 
+            let link = document.createElement('a')
+            link.href = `/${$scope.filecode}`
+            link.download = $scope.filecode
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
         }).catch(err => {
             $scope.errorText = "File code not found"
         })

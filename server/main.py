@@ -150,7 +150,7 @@ def get_file(fileID):
             fileCode = file['id'] + "." + file['type']
         if len(fileCode) == 0:
             abort(404)
-        return send_file(app.config['UPLOAD_FOLDER']+"/"+fileCode)
+        return send_file(app.config['UPLOAD_FOLDER']+"/"+fileCode, as_attachment = True)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
