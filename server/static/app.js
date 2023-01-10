@@ -134,10 +134,10 @@ app.controller("dashboardCtrl", ['$scope', '$http', function($scope, $http) {
         if(confirm(`Delete ${name} from our servers? (This action cannot be undone)`)) {
             $http.delete(`/${id}`)
                 .then(res => {
-                    alert(res.data.message)
                     $scope.files = $scope.files.filter(file => file.id != id)
                     $scope.user.files = [...$scope.files].map(file => JSON.stringify(file))
                     sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
+                    alert(res.data.message)
                 })
         }
     }
@@ -216,8 +216,9 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
                         expDate: $scope.expDate,
                         name: file.name,
                         type: file.type.split('/')[1],
-                        id: res.data.id
+                        id: res.data.fileID
                     }
+                    console.log(newFile)
                     $scope.user.files.push(JSON.stringify(newFile))
                     sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
                     window.location = '/dashboard'
