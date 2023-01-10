@@ -129,6 +129,25 @@ app.controller("dashboardCtrl", ['$scope', function($scope) {
         window.location = '/'
     }
     $scope.user = JSON.parse(sessionStorage.getItem('currentUser'))
+    $scope.files = $scope.user.files.map(file => JSON.parse(file))
+    $scope.deleteFile = id => {
+        console.log("Delete", id)
+    }
+    $scope.copyFileCode = id => {
+        navigator.clipboard.writeText(id)
+    }
+    $scope.downloadFile = id => {
+        let link = document.createElement('a')
+        link.href = `/${id}`
+        link.download = id
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    }
+    $scope.UIDateString = dateStr => {
+        let date = new Date(dateStr)
+        return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
+    }
 }])
 
 app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {

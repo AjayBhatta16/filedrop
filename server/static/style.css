@@ -19,3 +19,33 @@ input[type="text"] {
     max-width: 300px;
     min-width: 200px;
 }
+
+a.title-text:hover {
+    text-decoration: none;
+}
+
+a.title-text:hover > svg {
+    fill: #0000EE;
+}
+
+svg {
+    vertical-align: middle;
+}
+
+.rem-11 {
+    font-size: 1.1rem;
+    color: #e7740e;
+}
+
+.rem-9 {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.icon-button {
+    border-radius: 5px;
+}
+
+.icon-button:hover {
+    background-color: #555;
+}

@@ -5,6 +5,7 @@ from db import get_db
 import json
 import string
 import random
+import os
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'userfiles'
@@ -151,6 +152,19 @@ def get_file(fileID):
         if len(fileCode) == 0:
             abort(404)
         return send_file(app.config['UPLOAD_FOLDER']+"/"+fileCode, as_attachment = True)
+    if request.method == 'DELETE':
+        fileCode = ""
+        fileQuery = files.find({"id": fileID})
+        for file in fileQuery:
+            fileCode = file['id'] + "." + file['type']
+        if len(fileCode) == 0:
+            abort(404)
+        os.remove(app.config['UPLOAD_FOLDER']+"/"+fileCode)
+        files.delete_one({"id": fileID})
+        return json.dumps({
+            "status": 200,
+            "message": "File "+fileCode+" has been deleted."
+        })
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
