@@ -189,6 +189,8 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
             $scope.errorText = "Please select an expiration date"
             return 
         }
+        $scope.expDate.setHours(23)
+        $scope.expDate.setMinutes(59)
         $http({
             method: 'POST',
             url: '/file/upload',
@@ -203,7 +205,7 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
                 model: {
                     expDate: $scope.expDate,
                     name: file.name,
-                    type: file.type.split('/')[1],
+                    type: file.name.split('.').slice(-1)[0],
                     ownerID: $scope.user.username,
                 },
                 file: file
@@ -215,7 +217,7 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
                     let newFile = {
                         expDate: $scope.expDate,
                         name: file.name,
-                        type: file.type.split('/')[1],
+                        type: file.name.split('.').slice(-1)[0],
                         id: res.data.fileID
                     }
                     console.log(newFile)
