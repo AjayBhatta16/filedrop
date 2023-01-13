@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, send_file, abort
 from werkzeug.utils import secure_filename
 from db import get_db
+from cleanup import delete_old_files
 
 import json
 import string
@@ -9,6 +10,8 @@ import os
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'userfiles'
+CLEANUP_INTERVAL = 100
+newFiles = 0
 
 filedrop_db = get_db()
 users = filedrop_db['users']
@@ -114,6 +117,8 @@ def user_create():
 
 @app.route('/file/upload', methods = ['POST'])
 def file_upload():
+    global newFiles 
+    global CLEANUP_INTERVAL
     if 'file' not in request.files:
         print('No file part')
         return json.dumps({
@@ -137,6 +142,11 @@ def file_upload():
         "name": data['name']
     }
     files.insert_one(newFile)
+    newFiles = newFiles + 1
+    if newFiles == CLEANUP_INTERVAL:
+        files_deleted = delete_old_files()
+        print(str(files_deleted) + " files deleted")
+        newFiles = 0
     return json.dumps({
         "status": 200,
         "fileID": id
