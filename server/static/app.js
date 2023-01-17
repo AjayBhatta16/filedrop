@@ -55,9 +55,17 @@ app.controller("signupCtrl", ['$scope', '$http', function($scope, $http) {
             $scope.errorText = "Username is required"
             return
         }
+        if($scope.username.indexOf('@') != -1) {
+            $scope.errorText = "Usernames cannot contain the @ character"
+            return 
+        }
         if($scope.email.length == 0) {
             $scope.errorText = "email is required"
             return
+        }
+        if($scope.email.indexOf('@') == -1) {
+            $scope.errorText = "Please enter a valid email"
+            return 
         }
         if($scope.password.length == 0) {
             $scope.errorText = "Password is required"
