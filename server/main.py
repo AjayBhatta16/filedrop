@@ -7,6 +7,7 @@ import json
 import string
 import random
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'userfiles'
@@ -16,6 +17,7 @@ newFiles = 0
 filedrop_db = get_db()
 users = filedrop_db['users']
 files = filedrop_db['files']
+iplogs = filedrop_db['iplogs']
 
 def userData(username):
     fileQuery = files.find({"ownerID": username})
@@ -32,6 +34,20 @@ def userData(username):
         "username": username,
         "files": userFiles
     })
+
+def log_IP(req, action, fileID):
+    ip = ""
+    if req.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        ip = req.environ['REMOTE_ADDR']
+    else: 
+        ip = req.environ['HTTP_X_FORWARDED_FOR']
+    log = {
+        "action": action,
+        "fileID": fileID,
+        "IPAddress": ip,
+        "timestamp": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    }
+    iplogs.insert_one(log)
 
 def generateID():
     return ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
@@ -131,6 +147,7 @@ def file_upload():
     else:
         print('File received: ', f.filename)
     id = newFileID()
+    log_IP(request, "upload", id)
     f.save(app.config['UPLOAD_FOLDER']+"/"+secure_filename(id+"."+get_ext(f.filename)))
     print("file data: ", request.form['model'])
     data = json.loads(request.form['model'])
@@ -155,6 +172,7 @@ def file_upload():
 @app.route('/<fileID>', methods = ['GET', 'DELETE'])
 def get_file(fileID):
     if request.method == 'GET':
+        log_IP(request, "download", fileID)
         fileCode = ""
         fileQuery = files.find({"id": fileID})
         for file in fileQuery:
