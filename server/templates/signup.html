@@ -48,6 +48,7 @@
         <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="email" ng-model="email" type="text" placeholder="Email Address"><br>
         <input class="px-2 py-1 mt-4 bg-dark text-white acc-input" id="password" ng-model="password" type="password" placeholder="Password"><br>
         <input class="px-2 py-1 mt-4 mb-3 bg-dark text-white acc-input" id="confirm" ng-model="confirm" type="password" placeholder="Confirm Password"><br>
+        <p class="mx-auto mb-1 terms">By signing up, you agree to the <a href="{{ url_for('static', filename = 'terms.pdf') }}" target="_blank" class="terms-link">FileDrop terms of service</a></p>
         <small class="text-danger text-left mt-3 font-weight-light" id="error-text">[[errorText]]</small><br>
         <button class="btn btn-primary mt-3" ng-click="handleClick()">Register</button>
     </div>

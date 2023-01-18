@@ -61,3 +61,21 @@ svg {
 .file-name::-webkit-scrollbar {
     display: none;
 }
+
+input.form-check-input {
+    width: 17px;
+    height: 17px;
+}
+
+.form-check-label {
+    font-size: 17px;
+}
+
+a.terms-link {
+    color: #aaf;
+}
+
+.terms {
+    width: 220px;
+    color: #aaa;
+}
