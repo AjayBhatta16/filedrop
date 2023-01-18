@@ -8,16 +8,23 @@ import string
 import random
 import os
 from datetime import datetime
+import hashlib
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'userfiles'
 CLEANUP_INTERVAL = 100
 newFiles = 0
+salt = 'dr0p'
 
 filedrop_db = get_db()
 users = filedrop_db['users']
 files = filedrop_db['files']
 iplogs = filedrop_db['iplogs']
+
+def encrypt_password(password):
+    global salt
+    db_password = password + salt 
+    return hashlib.md5(db_password.encode()).hexdigest()
 
 def userData(username):
     fileQuery = files.find({"ownerID": username})
@@ -90,7 +97,7 @@ def login():
     username = ""
     userQuery = users.find({"username": data['username']})
     for user in userQuery:
-        if user['password'] == data['password']:
+        if user['password'] == data['password'] or user['password'] == encrypt_password(data['password']):
             username = user['username']
     emailQuery = users.find({"email": data['username']})
     for user in emailQuery:
@@ -123,7 +130,7 @@ def user_create():
     newUser = {
         "username": data['username'],
         "email": data['email'],
-        "password": data['password'],
+        "password": encrypt_password(data['password']),
     }
     users.insert_one(newUser)
     return json.dumps({
