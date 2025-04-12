@@ -1,4 +1,6 @@
 from flask import Flask, request, render_template, send_file, abort
+
+"""
 from werkzeug.utils import secure_filename
 from db import get_db
 # from cleanup import delete_old_files
@@ -9,8 +11,10 @@ import random
 import os
 from datetime import datetime
 import hashlib
+"""
 
 application = Flask(__name__)
+"""
 application.config['UPLOAD_FOLDER'] = 'userfiles'
 CLEANUP_INTERVAL = 100
 newFiles = 0
@@ -76,6 +80,7 @@ def newFileID():
 def get_ext(filename):
     parts = filename.split(".")
     return parts[len(parts) - 1]
+"""
 
 @application.route('/')
 def send_index():
@@ -97,6 +102,7 @@ def send_dashboard():
 def send_create_page():
     return render_template('newfile.html')
 
+"""
 @application.route('/user/login', methods = ['POST'])
 def login():
     dataStr = request.data.decode()
@@ -208,6 +214,7 @@ def get_file(fileID):
             "status": 200,
             "message": "File "+fileName+" has been deleted."
         })
+"""
 
 if __name__ == '__main__':
     application.config['TEMPLATES_AUTO_RELOAD'] = True
