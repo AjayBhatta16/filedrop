@@ -30,8 +30,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Zip app for deployment
-        run: zip -r deploy.zip . -x '*.git*' '*.github*' 'tests/*'
+      - name: Zip source bundle
+        run: |
+          cd ..
+          zip -r deploy.zip server -x '*.git*' '*.github*'
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
