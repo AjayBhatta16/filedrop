@@ -18,24 +18,6 @@ application = Flask(__name__)
 application.config['UPLOAD_FOLDER'] = 'userfiles'
 CLEANUP_INTERVAL = 100
 newFiles = 0
-salt = 'dr0p'
-
-def get_env():
-    with open('./env.json') as file:
-        data = json.load(file)
-        return data
-    
-env = get_env()
-
-filedrop_db = get_db(env)
-users = filedrop_db['users']
-files = filedrop_db['files']
-iplogs = filedrop_db['iplogs']
-
-def encrypt_password(password):
-    global salt
-    db_password = password + salt 
-    return hashlib.md5(db_password.encode()).hexdigest()
 
 def userData(username):
     fileQuery = files.find({"ownerID": username})
@@ -65,17 +47,7 @@ def log_IP(req, action, fileID):
         "IPAddress": ip,
         "timestamp": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     }
-    iplogs.insert_one(log)
-
-def generateID():
-    return ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
-
-def newFileID():
-    id = generateID()
-    fileQuery = files.find({"id": id})
-    if len(list(fileQuery)) > 0:
-        return newFileID()
-    return id 
+    iplogs.insert_one(log) 
 
 def get_ext(filename):
     parts = filename.split(".")
