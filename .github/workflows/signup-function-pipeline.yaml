@@ -31,9 +31,7 @@ jobs:
           chmod 700 ../update-function.sh
           ../update-function.sh signup
           pip install -r requirements.txt
-          cp lambda_function.py package/
-          cd package
-          zip -r ../../lambda.zip .
+          zip -r ./lambda.zip .
 
       - name: Deploy to Lambda
         uses: appleboy/lambda-action@v0.2.0

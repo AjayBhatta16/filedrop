@@ -11,4 +11,5 @@ echo "**/shared_utils" > .gitignore
 
 # reinstall shared package
 cp -r ../shared_utils ./shared_utils
+echo "" >> ./requirements.txt
 cat ./shared_utils/requirements.txt >> ./requirements.txt
