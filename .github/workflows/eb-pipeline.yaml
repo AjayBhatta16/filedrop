@@ -32,8 +32,8 @@ jobs:
 
       - name: Zip source bundle
         run: |
-          cd ..
-          zip -r deploy.zip server -x '*.git*' '*.github*'
+          cd server
+          zip -r ../deploy.zip . -x '*.git*' '*.github*'
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
