@@ -1,0 +1,19 @@
+branch-defaults:
+  default:
+    environment: filedrop-web-app-env
+    group_suffix: null
+global:
+  application_name: filedrop-web-app
+  branch: null
+  default_ec2_keyname: null
+  default_platform: Python 3.11
+  default_region: us-east-2
+  include_git_submodules: true
+  instance_profile: null
+  platform: "Python 3.11 running on 64bit Amazon Linux 2023"
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: null
+  workspace_type: Application

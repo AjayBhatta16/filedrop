@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, send_file, abort
 from werkzeug.utils import secure_filename
 from db import get_db
-from cleanup import delete_old_files
+# from cleanup import delete_old_files
 
 import json
 import string
@@ -10,13 +10,20 @@ import os
 from datetime import datetime
 import hashlib
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'userfiles'
+application = Flask(__name__)
+application.config['UPLOAD_FOLDER'] = 'userfiles'
 CLEANUP_INTERVAL = 100
 newFiles = 0
 salt = 'dr0p'
 
-filedrop_db = get_db()
+def get_env():
+    with open('./env.json') as file:
+        data = json.load(file)
+        return data
+    
+env = get_env()
+
+filedrop_db = get_db(env)
 users = filedrop_db['users']
 files = filedrop_db['files']
 iplogs = filedrop_db['iplogs']
@@ -70,27 +77,27 @@ def get_ext(filename):
     parts = filename.split(".")
     return parts[len(parts) - 1]
 
-@app.route('/')
+@application.route('/')
 def send_index():
     return render_template('index.html')
 
-@app.route('/login')
+@application.route('/login')
 def send_login_page():
     return render_template('login.html')
 
-@app.route('/signup')
+@application.route('/signup')
 def send_signup_page():
     return render_template('signup.html')
 
-@app.route('/dashboard')
+@application.route('/dashboard')
 def send_dashboard():
     return render_template('dashboard.html')
 
-@app.route('/newfile')
+@application.route('/newfile')
 def send_create_page():
     return render_template('newfile.html')
 
-@app.route('/user/login', methods = ['POST'])
+@application.route('/user/login', methods = ['POST'])
 def login():
     dataStr = request.data.decode()
     data = json.loads(dataStr)
@@ -110,7 +117,7 @@ def login():
         "message": "Incorrect username or password"
     })
 
-@app.route('/user/create', methods = ['POST'])
+@application.route('/user/create', methods = ['POST'])
 def user_create():
     # TODO: Implement password encryption
     dataStr = request.data.decode()
@@ -138,7 +145,7 @@ def user_create():
         "username": newUser['username']
     })
 
-@app.route('/file/upload', methods = ['POST'])
+@application.route('/file/upload', methods = ['POST'])
 def file_upload():
     global newFiles 
     global CLEANUP_INTERVAL
@@ -155,7 +162,7 @@ def file_upload():
         print('File received: ', f.filename)
     id = newFileID()
     log_IP(request, "upload", id)
-    f.save(app.config['UPLOAD_FOLDER']+"/"+secure_filename(id+"."+get_ext(f.filename)))
+    f.save(application.config['UPLOAD_FOLDER']+"/"+secure_filename(id+"."+get_ext(f.filename)))
     print("file data: ", request.form['model'])
     data = json.loads(request.form['model'])
     newFile = {
@@ -168,15 +175,15 @@ def file_upload():
     files.insert_one(newFile)
     newFiles = newFiles + 1
     if newFiles == CLEANUP_INTERVAL:
-        files_deleted = delete_old_files()
-        print(str(files_deleted) + " files deleted")
+        # files_deleted = delete_old_files()
+        # print(str(files_deleted) + " files deleted")
         newFiles = 0
     return json.dumps({
         "status": 200,
         "fileID": id
     })
 
-@app.route('/<fileID>', methods = ['GET', 'DELETE'])
+@application.route('/<fileID>', methods = ['GET', 'DELETE'])
 def get_file(fileID):
     if request.method == 'GET':
         log_IP(request, "download", fileID)
@@ -186,7 +193,7 @@ def get_file(fileID):
             fileCode = file['id'] + "." + file['type']
         if len(fileCode) == 0:
             abort(404)
-        return send_file(app.config['UPLOAD_FOLDER']+"/"+fileCode, as_attachment = True)
+        return send_file(application.config['UPLOAD_FOLDER']+"/"+fileCode, as_attachment = True)
     if request.method == 'DELETE':
         fileCode = ""
         fileQuery = files.find({"id": fileID})
@@ -195,7 +202,7 @@ def get_file(fileID):
             fileName = file['name']
         if len(fileCode) == 0:
             abort(404)
-        os.remove(app.config['UPLOAD_FOLDER']+"/"+fileCode)
+        os.remove(application.config['UPLOAD_FOLDER']+"/"+fileCode)
         files.delete_one({"id": fileID})
         return json.dumps({
             "status": 200,
@@ -203,6 +210,6 @@ def get_file(fileID):
         })
 
 if __name__ == '__main__':
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-    app.run()
+    application.config['TEMPLATES_AUTO_RELOAD'] = True
+    application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+    application.run()

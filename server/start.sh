@@ -1,1 +1,1 @@
-python3 main.py && echo
+python3 application.py && echo

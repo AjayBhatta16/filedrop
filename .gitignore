@@ -1,1 +1,4 @@
 **/userfiles
+**/env.json
+**/__pycache__
+**/venv
