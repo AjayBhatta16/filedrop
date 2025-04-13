@@ -1,6 +1,6 @@
 import json
 
-from http_exception import HttpException
+from .http_exception import HttpException
 
 class RequestSchema():
     def __init__(self, method: str, required_fields: list):

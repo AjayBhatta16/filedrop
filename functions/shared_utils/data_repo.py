@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import os
 
 class DataRepo():
-    def get_db():
+    def get_db(self):
         CONNECTION_STRING = os.environ.get("MONGO_CONNECTION_STRING")
         client = MongoClient(CONNECTION_STRING)
         return client[os.environ.get("DATABASE_NAME")]
