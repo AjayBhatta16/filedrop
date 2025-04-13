@@ -5,7 +5,7 @@ class DataRepo():
     def get_db():
         CONNECTION_STRING = os.environ.get("MONGO_CONNECTION_STRING")
         client = MongoClient(CONNECTION_STRING)
-        return client['filedrop_db']
+        return client[os.environ.get("DATABASE_NAME")]
     
     def __init__(self, container_id):
         self.db = self.get_db()

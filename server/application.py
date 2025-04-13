@@ -19,22 +19,6 @@ application.config['UPLOAD_FOLDER'] = 'userfiles'
 CLEANUP_INTERVAL = 100
 newFiles = 0
 
-def userData(username):
-    fileQuery = files.find({"ownerID": username})
-    userFiles = []
-    for file in fileQuery:
-        userFiles.append(json.dumps({
-            "id": file['id'],
-            "name": file['name'],
-            "type": file['type'],
-            "expDate": file['expDate']
-        }))
-    return json.dumps({
-        "status": "200",
-        "username": username,
-        "files": userFiles
-    })
-
 def log_IP(req, action, fileID):
     ip = ""
     if req.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -75,54 +59,6 @@ def send_create_page():
     return render_template('newfile.html')
 
 """
-@application.route('/user/login', methods = ['POST'])
-def login():
-    dataStr = request.data.decode()
-    data = json.loads(dataStr)
-    username = ""
-    userQuery = users.find({"username": data['username']})
-    for user in userQuery:
-        if user['password'] == data['password'] or user['password'] == encrypt_password(data['password']):
-            username = user['username']
-    emailQuery = users.find({"email": data['username']})
-    for user in emailQuery:
-        if user['password'] == data['password']:
-            username = user['username']
-    if len(username) > 0:
-        return userData(username)
-    return json.dumps({
-        "status": "404",
-        "message": "Incorrect username or password"
-    })
-
-@application.route('/user/create', methods = ['POST'])
-def user_create():
-    # TODO: Implement password encryption
-    dataStr = request.data.decode()
-    data = json.loads(dataStr)
-    usernameQuery = users.find({"username": data['username']})
-    if len(list(usernameQuery)) > 0:
-        return json.dumps({
-            "status": 400,
-            "message": "An account with this username already exists"
-        })
-    emailQuery = users.find({"email": data['email']})
-    if len(list(emailQuery)) > 0:
-        return json.dumps({
-            "status": 400,
-            "message": "An account with this email already exists"
-        })
-    newUser = {
-        "username": data['username'],
-        "email": data['email'],
-        "password": encrypt_password(data['password']),
-    }
-    users.insert_one(newUser)
-    return json.dumps({
-        "status": "200",
-        "username": newUser['username']
-    })
-
 @application.route('/file/upload', methods = ['POST'])
 def file_upload():
     global newFiles 
