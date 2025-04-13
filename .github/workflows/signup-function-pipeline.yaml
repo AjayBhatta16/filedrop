@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "functions/signup/**"
-      - "functions/shared-utils/**"
+      - "functions/shared_utils/**"
     branches:
       - main
 
