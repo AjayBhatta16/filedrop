@@ -1,0 +1,9 @@
+Resource: shared_utils package
+Environment variables used:
+    - MONGO_CONNECTION_STRING
+    - DATABASE_NAME
+    - PASSWORD_SALT
+
+Resource: signup lambda
+Environment variables used:
+    - USER_CONTAINER_ID
