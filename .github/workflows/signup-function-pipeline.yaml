@@ -33,6 +33,10 @@ jobs:
           pip install -r requirements.txt
           zip -r ./lambda.zip .
 
+      - name: Inspect lambda.zip contents
+        run: unzip -l ./lambda.zip
+        working-directory: functions/signup
+
       - name: Deploy to Lambda
         uses: appleboy/lambda-action@v0.2.0
         with:
