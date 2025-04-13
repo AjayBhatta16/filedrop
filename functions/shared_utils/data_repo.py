@@ -14,6 +14,9 @@ class DataRepo():
     def search(self, query):
         return self.data.find(query)
     
+    def search_one(self, query):
+        return self.data.find_one(query)
+    
     def create_item(self, item):
         return self.data.insert_one(item)
     

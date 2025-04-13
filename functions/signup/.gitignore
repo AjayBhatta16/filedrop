@@ -1,1 +1,6 @@
 **/shared_utils
+lambda.zip
+**/bson
+**/dns*
+**/gridfs
+**/pymongo*

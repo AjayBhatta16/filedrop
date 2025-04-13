@@ -30,7 +30,7 @@ jobs:
         run: |
           chmod 700 ../update-function.sh
           ../update-function.sh signup
-          pip install -r requirements.txt
+          pip install -r requirements.txt -t .
           zip -r ./lambda.zip .
 
       - name: Inspect lambda.zip contents
