@@ -5,6 +5,7 @@ on:
     paths:
       - "functions/signup/**"
       - "functions/shared_utils/**"
+      - ".github/workflows/signup-function-pipeline.yaml"
     branches:
       - main
 
@@ -45,3 +46,5 @@ jobs:
             aws_region: ${{ secrets.AWS_REGION }}
             function_name: filedrop-user-signup
             zip_file: ./functions/signup/lambda.zip
+            memory_size: 128
+            timeout: 10
