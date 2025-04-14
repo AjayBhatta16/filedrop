@@ -48,3 +48,4 @@ jobs:
             zip_file: ./functions/signup/lambda.zip
             memory_size: 128
             timeout: 10
+            runtime: python3.11.x
