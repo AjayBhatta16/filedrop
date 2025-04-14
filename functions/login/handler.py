@@ -1,4 +1,4 @@
-from shared_utils import encrypt_password, DataRepo, HttpException
+from .shared_utils import encrypt_password, DataRepo, HttpException
 
 class LoginHandler():
     def __init__(self, user_repo: DataRepo, file_metadata_repo: DataRepo):
@@ -9,27 +9,31 @@ class LoginHandler():
         LOG_CONTEXT = 'LoginHandler - get_user'
 
         print(f'{LOG_CONTEXT} - search by username')
-        username_query = self.user_repo.search({"username": username})
+        username_query = self.user_repo.search_one({"username": username})
 
-        if len(list(username_query)) > 0:
-            return list(username_query)[0]
+        if username_query != None:
+            print(f'{LOG_CONTEXT} - user found: {username_query}')
+            return username_query
         
         print(f'{LOG_CONTEXT} - search by email')
-        email_query = self.user_repo.search({"email": username})
+        email_query = self.user_repo.search_one({"email": username})
 
-        if len(list(email_query)) > 0:
-            return list(email_query)[0]
+        if email_query != None:
+            print(f'{LOG_CONTEXT} - user found: {email_query}')
+            return email_query
         
         print(f'{LOG_CONTEXT} - user not found')
         raise HttpException(404, "User not found")
     
-    def check_password(req_password: str, db_password: str):
+    def check_password(self, req_password: str, db_password: str):
         LOG_CONTEXT = 'LoginHandler - check_password'
 
         print(f'{LOG_CONTEXT} - encrypting password')
-        encrypt_result = encrypt_password(db_password)
+        encrypt_result = encrypt_password(req_password)
 
-        if req_password == db_password or req_password == encrypt_result:
+        print(f'{LOG_CONTEXT} - encrypt result: {encrypt_result}')
+
+        if req_password == db_password or encrypt_result == db_password:
             return True
         
         print(f'{LOG_CONTEXT} - Incorrect password')
@@ -62,6 +66,6 @@ class LoginHandler():
 
         self.check_password(req["password"], user["password"])
 
-        user.files = self.get_user_files(user)
+        user["files"] = self.get_user_files(user)
 
         return user

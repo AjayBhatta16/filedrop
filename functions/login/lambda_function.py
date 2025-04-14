@@ -1,11 +1,11 @@
 import os
 import json
 
-from handler import LoginHandler
-from shared_utils import DataRepo, HttpException, RequestSchema, validate_request
+from .handler import LoginHandler
+from .shared_utils import DataRepo, HttpException, RequestSchema, validate_request
 
 user_repo = DataRepo(os.environ.get("USER_CONTAINER_ID"))
-file_metadata_repo = DataRepo(os.environ.get("FILE_CONTAINER_ID"))
+file_metadata_repo = DataRepo(os.environ.get("FILE_METADATA_CONTAINER_ID"))
 req_handler = LoginHandler(user_repo, file_metadata_repo)
 
 req_schema = RequestSchema("POST", ["username", "password"])

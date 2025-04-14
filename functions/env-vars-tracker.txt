@@ -7,3 +7,8 @@ Environment variables used:
 Resource: signup lambda
 Environment variables used:
     - USER_CONTAINER_ID
+
+Resource: login lambda
+Environment variables used:
+    - USER_CONTAINER_ID
+    - FILE_METADATA_CONTAINER_ID
