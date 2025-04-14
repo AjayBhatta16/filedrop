@@ -8,10 +8,14 @@ class RequestSchema():
         self.required_fields = required_fields
 
 def validate_request(request_event, request_schema: RequestSchema):
+    print(f"request event: {request_event}")
+
     if request_event["requestContext"]["http"]["method"] != request_schema.method:
         raise HttpException(405, "method not allowed")
     
     req_body = json.loads(request_event.get("body", "{}"))
+
+    print(f"request body: {req_body}")
 
     for field in request_schema.required_fields:
         if field not in req_body:

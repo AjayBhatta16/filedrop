@@ -6,15 +6,15 @@ class SignupHandler():
 
     def handle(self, req):
         print('Signup Handler - validating unique username')
-        uname_query = self.user_repo.search_one({"username": req["username"]})
+        uname_result = self.user_repo.search_one({"username": req["username"]})
 
-        if len(list(uname_query)) > 0:
+        if uname_result != None:
             raise HttpException(409, "A user with this username already exists.")
         
         print('Signup Handler - validating unique email')
-        email_query = self.user_repo.search_one({"email": req["email"]})
+        email_result = self.user_repo.search_one({"email": req["email"]})
 
-        if len(list(email_query)) > 0:
+        if email_result != None:
             raise HttpException(409, "A user with this email already exists.")
         
         print('Signup Handler - encrypting password')

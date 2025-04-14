@@ -4,11 +4,14 @@ import os
 class DataRepo():
     def get_db(self):
         CONNECTION_STRING = os.environ.get("MONGO_CONNECTION_STRING")
+        self.DATABASE_NAME = os.environ.get("DATABASE_NAME")
+
         client = MongoClient(CONNECTION_STRING)
-        return client[os.environ.get("DATABASE_NAME")]
+        return client[self.DATABASE_NAME]
     
     def __init__(self, container_id):
         self.db = self.get_db()
+        print(f"Initializing repo for container {container_id} from database {self.DATABASE_NAME}")
         self.data = self.db[container_id]
 
     def search(self, query):

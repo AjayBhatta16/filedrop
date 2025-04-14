@@ -15,21 +15,42 @@ def lambda_handler(event, context):
 
         result = req_handler.handle(req_body)
 
-        return json.dumps({
-            "status": 200,
-            "data": result
-        })
+        print(f'Handler result -', result)
+
+        return {
+            "statusCode": 201,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": json.dumps({
+                "username": result["username"],
+                "email": result["email"]
+            }),
+            "isBase64Encoded": False
+        }
 
     except HttpException as ex:
-        return json.dumps({
-            "status": ex.status_code,
-            "message": ex.message
-        })
+        return {
+            "statusCode": ex.status_code,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": json.dumps({
+                "error": ex.message
+            }),
+            "isBase64Encoded": False
+        }
     
     except Exception as ex:
         print(str(ex))
 
-        return json.dumps({
-            "status": 500,
-            "message": "An unknown error has occurred."
-        })
+        return {
+            "statusCode": 500,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": json.dumps({
+                "error": "An unknown error has occurred."
+            }),
+            "isBase64Encoded": False
+        }
