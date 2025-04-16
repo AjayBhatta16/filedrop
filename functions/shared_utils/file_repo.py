@@ -5,7 +5,7 @@ class FileRepo():
     def __init__(self):
         pass
 
-    def generateID():
+    def generateID(self):
         return ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
 
     def newFileID(self, file_queryable):
