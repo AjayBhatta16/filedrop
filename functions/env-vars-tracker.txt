@@ -1,3 +1,8 @@
+Resource: main server
+Environment variables used:
+    - API_GATEWAY_URL
+    - S3_BUCKET_NAME
+
 Resource: shared_utils package
 Environment variables used:
     - MONGO_CONNECTION_STRING
@@ -11,4 +16,12 @@ Environment variables used:
 Resource: login lambda
 Environment variables used:
     - USER_CONTAINER_ID
+    - FILE_METADATA_CONTAINER_ID
+
+Resource: create file lambda
+Environment variables used:
+    - FILE_METADATA_CONTAINER_ID
+
+Resource: get file lambda
+Environment variables used:
     - FILE_METADATA_CONTAINER_ID

@@ -25,3 +25,6 @@ class DataRepo():
     
     def delete_item(self, item):
         return self.data.delete_one(item)
+    
+    def get_queryable(self):
+        return self.data

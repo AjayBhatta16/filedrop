@@ -1,4 +1,4 @@
-from .shared_utils import encrypt_password, DataRepo, HttpException
+from shared_utils import encrypt_password, DataRepo, HttpException
 
 class LoginHandler():
     def __init__(self, user_repo: DataRepo, file_metadata_repo: DataRepo):
