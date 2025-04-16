@@ -18,6 +18,9 @@ def lambda_handler(event, context):
 
         print(f'Handler result -', result)
 
+        if "_id" in result:
+            del result["_id"]
+
         return {
             "statusCode": 200,
             "headers": {
