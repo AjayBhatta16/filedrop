@@ -1,9 +1,11 @@
 import random
 import string
+import boto3
+import os
 
 class FileRepo():
     def __init__(self):
-        pass
+        self.s3_client = boto3.client('s3')
 
     def generateID(self):
         return ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
@@ -21,5 +23,11 @@ class FileRepo():
     def getFile(self):
         pass
 
-    def deleteFile(self):
-        pass
+    def deleteFile(self, file_name):
+        bucket_name = os.environ.get("S3_BUCKET_NAME")
+        response = self.s3_client.delete_object(
+            Bucket=bucket_name,
+            Key=file_name
+        )
+
+        return response

@@ -1,0 +1,51 @@
+name: Deploy Delete File Function to AWS Lambda
+
+on:
+  push:
+    paths:
+      - "functions/delete-file/**"
+      - "functions/shared_utils/**"
+      - ".github/workflows/delete-file-function-pipeline.yaml"
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Lambda
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: functions/delete-file
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          chmod 700 ../update-function.sh
+          ../update-function.sh delete-file
+          pip install -r requirements.txt -t .
+          zip -r ./lambda.zip .
+
+      - name: Inspect lambda.zip contents
+        run: unzip -l ./lambda.zip
+        working-directory: functions/delete-file
+
+      - name: Deploy to Lambda
+        uses: appleboy/lambda-action@v0.2.0
+        with:
+            aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws_region: ${{ secrets.AWS_REGION }}
+            function_name: filedrop-file-delete
+            zip_file: ./functions/delete-file/lambda.zip
+            memory_size: 128
+            timeout: 10
+            runtime: python3.11
