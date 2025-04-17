@@ -1,4 +1,5 @@
 let app = angular.module("MyApp", [])
+let baseURL = window.env?.baseURL
 
 app.config(['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[')
@@ -80,7 +81,7 @@ app.controller("signupCtrl", ['$scope', '$http', function($scope, $http) {
             "email": $scope.email,
             "password": $scope.password
         }
-        $http.post('/user/create', data)
+        $http.post(`${baseURL}/filedrop-user-signup`, data)
             .then(res => {
                 console.log(res.data.status)
                 if(res.data.status == "200") {
@@ -114,7 +115,7 @@ app.controller("loginCtrl", ['$scope', '$http', function($scope, $http) {
             "username": $scope.username,
             "password": $scope.password
         }
-        $http.post('/user/login', data)
+        $http.post(`${baseURL}/filedrop-user-login`, data)
             .then(res => {
                 console.log(res.data.status)
                 if(res.data.status == "200") {
@@ -140,9 +141,13 @@ app.controller("dashboardCtrl", ['$scope', '$http', function($scope, $http) {
     $scope.files = $scope.user.files.map(file => JSON.parse(file))
     $scope.deleteFile = (id, name) => {
         if(confirm(`Delete ${name} from our servers? (This action cannot be undone)`)) {
-            $http.delete(`/${id}`)
+            let data = {
+                displayID: id
+            }
+
+            $http.post(`${baseURL}/filedrop-file-delete`, data)
                 .then(res => {
-                    $scope.files = $scope.files.filter(file => file.id != id)
+                    $scope.files = $scope.files.filter(file => file.displayID != id)
                     $scope.user.files = [...$scope.files].map(file => JSON.stringify(file))
                     sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
                     alert(res.data.message)
@@ -212,7 +217,7 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
             data: {
                 model: {
                     expDate: $scope.expDate,
-                    name: file.name,
+                    displayName: file.name,
                     type: file.name.split('.').slice(-1)[0],
                     ownerID: $scope.user.username,
                 },
@@ -224,9 +229,9 @@ app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {
                 if(res.data.status == "200") {
                     let newFile = {
                         expDate: $scope.expDate,
-                        name: file.name,
+                        displayName: file.name,
                         type: file.name.split('.').slice(-1)[0],
-                        id: res.data.fileID
+                        displayID: res.data.displayID
                     }
                     console.log(newFile)
                     $scope.user.files.push(JSON.stringify(newFile))

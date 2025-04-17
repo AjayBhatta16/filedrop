@@ -3,21 +3,29 @@
     "type": "object",
     "properties": {
       "username": {
-        "type": "string"
+        "type": "string",
+        "description": "A unique identifier chosen by the user during signup, utilized for file metadata and logs."
       },
       "email": {
-        "type": "string"
+        "type": "string",
+        "description": "An email address used to validate the user during signup."
       },
       "password": {
-        "type": "string"
+        "type": "string",
+        "description": "A salted encryption of the users password."
       },
       "file_list": {
         "type": "array",
+        "description": "A list of file IDs stored in the database.",
         "items": [
           {
             "type": "string"
           }
         ]
+      },
+      "files": {
+        "type": "array",
+        "description": "A collection of file metadata objects that map to file_list."
       }
     },
     "required": [

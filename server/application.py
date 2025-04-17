@@ -11,6 +11,11 @@ application = Flask(__name__)
 
 s3_client = boto3.client('s3')
 
+print(os.environ.get("API_GATEWAY_URL"))
+js_env = {
+    "baseURL": os.environ.get("API_GATEWAY_URL")
+}
+
 """
 def log_IP(req, action, fileID):
     ip = ""
@@ -29,23 +34,23 @@ def log_IP(req, action, fileID):
 
 @application.route('/')
 def send_index():
-    return render_template('index.html')
+    return render_template('index.html', js_env=js_env)
 
 @application.route('/login')
 def send_login_page():
-    return render_template('login.html')
+    return render_template('login.html', js_env=js_env)
 
 @application.route('/signup')
 def send_signup_page():
-    return render_template('signup.html')
+    return render_template('signup.html', js_env=js_env)
 
 @application.route('/dashboard')
 def send_dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', js_env=js_env)
 
 @application.route('/newfile')
 def send_create_page():
-    return render_template('newfile.html')
+    return render_template('newfile.html', js_env=js_env)
 
 @application.route('/file/upload', methods = ['POST'])
 def file_upload():
@@ -88,7 +93,7 @@ def file_upload():
         "type": data['type'],
         "expDate": data['expDate'],
         "ownerID": data['ownerID'],
-        "displayName": data['name'],
+        "displayName": data['displayName'],
         "storageURL": file_name
     }
 
@@ -112,13 +117,13 @@ def file_upload():
     
     return json.dumps({
         "status": 200,
-        "fileID": file_id
+        "displayID": file_id
     })
 
 @application.route('/<fileID>', methods = ['GET'])
 def get_file(fileID):
     get_metadata_request = {
-        "fileID": fileID
+        "displayID": fileID
     }
 
     # call lambda function to get metadata

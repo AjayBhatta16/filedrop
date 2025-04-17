@@ -13,7 +13,7 @@ class GetFileHandler():
         raise HttpException(404, 'File not found')
 
     def handle(self, req):
-        file_id = req["fileID"]
+        file_id = req["displayID"]
 
         file_info = self.get_file(file_id)
 

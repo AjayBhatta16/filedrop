@@ -8,7 +8,7 @@ file_metadata_repo = DataRepo(os.environ.get("FILE_METADATA_CONTAINER_ID"))
 
 req_handler = GetFileHandler(file_metadata_repo)
 
-req_schema = RequestSchema("POST", ["fileID"])
+req_schema = RequestSchema("POST", ["displayID"])
 
 def lambda_handler(event, context):
     try:
@@ -24,7 +24,10 @@ def lambda_handler(event, context):
         return {
             "statusCode": 200,
             "headers": {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Methods": "*"
             },
             "isBase64Encoded": False,
             "body": json.dumps(result),
