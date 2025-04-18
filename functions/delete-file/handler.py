@@ -19,7 +19,7 @@ class DeleteFileHandler():
         self.storage_repo.deleteFile(storage_url)
 
     def handle(self, req):
-        delete_meta_result = self.delete_file(req["displayID"])
+        delete_meta_result = self.delete_metadata(req["displayID"])
 
         self.delete_file_s3(delete_meta_result["storageURL"])
 

@@ -74,7 +74,7 @@ def file_upload():
     S3_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
 
     upload_headers = {
-        "Content-Type": f.content_type
+        "ContentType": f.content_type
     }
 
     try:
@@ -144,12 +144,13 @@ def get_file(fileID):
     
     S3_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
     
-    s3_file_name = response.json()["storageURL"]
+    metadata = response.json()
+    s3_file_name = metadata["storageURL"]
     s3_response = s3_client.get_object(Bucket=S3_BUCKET_NAME, Key=s3_file_name)
 
-    f = s3_response['Body'].read()
+    f = s3_response['Body']
     
-    return send_file(f, as_attachment = True)
+    return send_file(f, as_attachment = True, download_name=metadata["displayName"])
     
 
 if __name__ == '__main__':

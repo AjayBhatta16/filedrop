@@ -83,8 +83,7 @@ app.controller("signupCtrl", ['$scope', '$http', function($scope, $http) {
         }
         $http.post(`${baseURL}/filedrop-user-signup`, data)
             .then(res => {
-                console.log(res.data.status)
-                if(res.data.status == "200") {
+                if(!!res.data) {
                     sessionStorage.setItem("currentUser", JSON.stringify({
                         username: res.data.username,
                         files: []
@@ -117,8 +116,7 @@ app.controller("loginCtrl", ['$scope', '$http', function($scope, $http) {
         }
         $http.post(`${baseURL}/filedrop-user-login`, data)
             .then(res => {
-                console.log(res.data.status)
-                if(res.data.status == "200") {
+                if(!!res.data) {
                     sessionStorage.setItem("currentUser", JSON.stringify({
                         username: res.data.username,
                         files: res.data.files
