@@ -148,7 +148,7 @@ app.controller("dashboardCtrl", ['$scope', '$http', function($scope, $http) {
                     $scope.files = $scope.files.filter(file => file.displayID != id)
                     $scope.user.files = [...$scope.files].map(file => JSON.stringify(file))
                     sessionStorage.setItem('currentUser', JSON.stringify($scope.user))
-                    alert(res.data.message)
+                    alert(`File ${id} deleted successfully.`)
                 })
         }
     }
