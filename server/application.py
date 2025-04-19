@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, abort
+from flask import Flask, request, render_template, send_file, send_from_directory
 from werkzeug.utils import secure_filename
 
 import json
@@ -7,7 +7,7 @@ import boto3
 import uuid
 import requests
 
-application = Flask(__name__)
+application = Flask(__name__, static_folder='static')
 
 s3_client = boto3.client('s3')
 
@@ -51,6 +51,14 @@ def send_dashboard():
 @application.route('/newfile')
 def send_create_page():
     return render_template('newfile.html', js_env=js_env)
+
+@application.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory(application.static_folder, 'sitemap.xml', mimetype='application/xml')
+
+@application.route('/robots.txt')
+def robots():
+    return send_from_directory(application.static_folder, 'robots.txt', mimetype='text/plain')
 
 @application.route('/file/upload', methods = ['POST'])
 def file_upload():
