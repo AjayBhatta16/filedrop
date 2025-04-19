@@ -1,0 +1,33 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
+    <url>
+        <loc>https://filedrop.cc/</loc>
+        <lastmod>2025-04-19T15:08:46+00:00</lastmod>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>https://filedrop.cc/login</loc>
+        <lastmod>2025-04-19T15:08:46+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://filedrop.cc/signup</loc>
+        <lastmod>2025-04-19T15:08:46+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://filedrop.cc/dashboard</loc>
+        <lastmod>2025-04-19T15:08:46+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://filedrop.cc/newfile</loc>
+        <lastmod>2025-04-19T15:08:46+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://filedrop.cc/static/terms.pdf</loc>
+        <lastmod>2025-04-19T01:59:46+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+</urlset>
