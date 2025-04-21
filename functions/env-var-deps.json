@@ -1,0 +1,29 @@
+{
+    "shared-utils": [
+        "MONGO_CONNECTION_STRING",
+        "DATABASE_NAME",
+        "PASSWORD_SALT",
+        "S3_BUCKET_NAME"
+    ],
+    "functions": {
+        "filedrop-file-create": [
+            "FILE_METADATA_CONTAINER_ID"
+        ],
+        "filedrop-file-delete": [
+            "FILE_METADATA_CONTAINER_ID"
+        ],
+        "filedrop-file-get-metadata": [
+            "FILE_METADATA_CONTAINER_ID"
+        ],
+        "filedrop-user-login": [
+            "FILE_METADATA_CONTAINER_ID",
+            "USER_CONTAINER_ID"
+        ],
+        "filedrop-user-signup": [
+            "USER_CONTAINER_ID"
+        ],
+        "filedrop-cleanup-timer": [
+            "FILE_METADATA_CONTAINER_ID"
+        ]
+    }
+}
