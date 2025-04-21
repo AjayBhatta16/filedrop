@@ -1,4 +1,4 @@
-name: Deploy Delete File Function to AWS Lambda
+name: Deploy Cleanup Timer Function to AWS Lambda
 
 on:
   push:
