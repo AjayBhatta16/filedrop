@@ -16,6 +16,6 @@ def lambda_handler(event, context):
 
     print('Cleanup Results:')
     print(f'\t- Files deleted: {result["filesDeleted"]}')
-    print(f'\t- Errors:{ ''.join(f'\n\t\t* {error}' for error in result["errors"]) }')
+    print(f'\t- Errors:{"".join(f"\n\t\t* {error}" for error in result["errors"])}')
 
     return json.dumps(result)
