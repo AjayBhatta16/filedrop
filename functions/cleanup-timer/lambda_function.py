@@ -12,7 +12,7 @@ handler = CleanupTimerHandler(metadata_repo, storage_repo)
 def lambda_handler(event, context):
     print('Cleanup Timer - start')
 
-    result = handler.handle(event)
+    result = handler.handle()
 
     print('Cleanup Results:')
     print(f'\t- Files deleted: {result["filesDeleted"]}')
