@@ -22,6 +22,8 @@ class CleanupTimerHandler():
             if diff.total_seconds() / 60 > 1440:
                 expired_files.append(file)
 
+        return expired_files
+
     def delete_file_metadata(self, file_id: str):
         self.metadata_repo.delete_item({"displayID": file_id})
 
