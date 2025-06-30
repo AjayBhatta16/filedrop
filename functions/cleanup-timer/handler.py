@@ -13,6 +13,8 @@ class CleanupTimerHandler():
         for file in all_files:
             now = datetime.datetime.now()
 
+            print(f"expDate type: {type(file['expDate'])}")
+            
             exp_date = datetime.datetime.fromtimestamp(file['expDate'])
             diff = now - exp_date
             
