@@ -16,7 +16,7 @@ class CleanupTimerHandler():
             print(f"expDate type: {type(file['expDate'])}")
             print(f"now type: {type(now)}")
             
-            exp_date = datetime.datetime.fromtimestamp(file['expDate'])
+            exp_date = datetime.datetime.fromtimestamp(file['expDate'] / 1000)
             diff = now - exp_date
             
             if diff.total_seconds() / 60 > 1440:
