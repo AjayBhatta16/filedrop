@@ -13,7 +13,8 @@ class CleanupTimerHandler():
         for file in all_files:
             now = datetime.datetime.now()
 
-            diff = now - file['expDate']
+            exp_date = datetime.datetime.fromtimestamp(file['expDate'])
+            diff = now - exp_date
             
             if diff.total_seconds() / 60 > 1440:
                 expired_files.append(file)
