@@ -19,6 +19,15 @@
       },
       "ownerID": {
         "type": "string"
+      },
+      "createdDateTime": {
+        "type": "string"
+      },
+      "createdByIP": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean"
       }
     },
     "required": [
@@ -27,6 +36,9 @@
       "expDate",
       "displayName",
       "storageURL",
-      "ownerID"
+      "ownerID",
+      "createdDateTime",
+      "createdByIP",
+      "active"
     ]
 }

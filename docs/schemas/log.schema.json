@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "timestamp": {
+            "type": "string",
+            "description": "The date and time when the log entry was created."
+        },
+        "username": {
+            "type": "string",
+            "description": "The username of the user associated with the log entry."
+        },
+        "fileID": {
+            "type": "string",
+            "description": "The unique identifier of the file involved in the log entry."
+        },
+        "action": {
+            "type": "string",
+            "description": "A brief description of the action performed."
+        },
+        "ipAddress": {
+            "type": "string",
+            "description": "The IP address from which the action was performed."
+        }
+    }
+}
