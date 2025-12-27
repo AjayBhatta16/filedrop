@@ -18,7 +18,7 @@ def lambda_handler(event, context):
 
         req_body = validate_request(event, req_schema)
 
-        req_body["createdByIP"] = middleware.get_requester_ip(event)
+        req_body["createdByIP"] = middleware.get_ip_address(event)
 
         result = req_handler.handle(req_body)
 
