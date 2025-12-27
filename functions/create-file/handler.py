@@ -15,6 +15,8 @@ class CreateFileHandler():
         req["createdDateTime"] = datetime.datetime.utcnow().isoformat()
         req["active"] = True
 
+        del req["overrideIP"]
+
         self.metadata_repo.create_item(req)
 
         return req

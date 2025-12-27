@@ -16,7 +16,7 @@ js_env = {
 }
 
 def get_user_ip(req):
-    return req.environ.get('HTTP_X_FORWARDED_FOR', req.environ['REMOTE_ADDR'])
+    return req.environ.get('HTTP_X_FORWARDED_FOR', req.environ['REMOTE_ADDR']).split(',')[0]
 
 @application.route('/')
 def send_index():
