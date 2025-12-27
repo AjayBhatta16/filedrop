@@ -1,3 +1,4 @@
+import datetime
 from shared_utils import FileRepo, DataRepo
 
 class CreateFileHandler():
@@ -11,6 +12,8 @@ class CreateFileHandler():
         new_file_id = self.storage_repo.newFileID(metadata_queryable)
 
         req["displayID"] = new_file_id
+        req["createdDateTime"] = datetime.datetime.utcnow().isoformat()
+        req["active"] = True
 
         self.metadata_repo.create_item(req)
 
