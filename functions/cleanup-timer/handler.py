@@ -24,8 +24,9 @@ class CleanupTimerHandler():
 
         return expired_files
 
-    def delete_file_metadata(self, file_id: str):
-        self.metadata_repo.delete_item({"displayID": file_id})
+    def delete_file_metadata(self, file):
+        file["active"] = False
+        self.metadata_repo.update_item(file, "displayID")
 
     def delete_file_from_storage(self, storage_url: str):
         self.storage_repo.deleteFile(storage_url)
@@ -40,12 +41,11 @@ class CleanupTimerHandler():
             file_count += 1
 
             try:
-                file_id = file["displayID"]
                 storage_url = file["storageURL"]
                 
                 self.delete_file_from_storage(storage_url)
 
-                self.delete_file_metadata(file_id)
+                self.delete_file_metadata(file)
             except Exception as ex:
                 error_list.append(str(ex))
 

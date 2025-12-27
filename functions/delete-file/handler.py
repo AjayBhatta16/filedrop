@@ -11,7 +11,9 @@ class DeleteFileHandler():
         if metadata == None:
             raise HttpException(404, f"File with display ID {file_id} not found.")
 
-        self.metadata_repo.delete_item({"displayID": file_id})
+        metadata["active"] = False
+
+        self.metadata_repo.update_item(metadata, "displayID")
 
         return metadata
     
