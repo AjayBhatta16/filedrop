@@ -69,7 +69,7 @@ class LoginHandler():
         user_copy["lastAccessedIP"] = ip_address
         user_copy["lastAccessedTime"] = datetime.datetime.utcnow().isoformat()
 
-        self.user_repo.update_item(user)
+        self.user_repo.update_item(user_copy, "username")
 
     def handle(self, req):
         user = self.get_user(req["username"])
