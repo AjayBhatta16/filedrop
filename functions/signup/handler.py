@@ -1,3 +1,5 @@
+import datetime
+
 from shared_utils import encrypt_password, DataRepo, HttpException
 
 class SignupHandler():
@@ -23,7 +25,11 @@ class SignupHandler():
         new_user = {
             "username": req["username"],
             "email": req["email"],
-            "password": encrypted_passwd
+            "password": encrypted_passwd,
+            "createdByIP": req["ipAddress"],
+            "createdDateTime": datetime.datetime.utcnow().isoformat(),
+            "lastAccessedByIP": req["ipAddress"],
+            "lastAccessedDateTime": datetime.datetime.utcnow().isoformat(),
         }
 
         print('Signup Handler - creating new user')

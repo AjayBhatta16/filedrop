@@ -12,23 +12,9 @@ application = Flask(__name__, static_folder='static')
 
 s3_client = boto3.client('s3')
 
-print(os.environ.get("API_GATEWAY_URL"))
 js_env = {
     "baseURL": os.environ.get("API_GATEWAY_URL")
 }
-
-def log_IP(req, action, fileID):
-    ip = ""
-    if req.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        ip = req.environ['REMOTE_ADDR']
-    else: 
-        ip = req.environ['HTTP_X_FORWARDED_FOR']
-    log = {
-        "action": action,
-        "fileID": fileID,
-        "ipAddress": ip,
-        "timestamp": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
-    }
 
 @application.route('/')
 def send_index():
@@ -61,17 +47,12 @@ def robots():
 @application.route('/file/upload', methods = ['POST'])
 def file_upload():
     if 'file' not in request.files:
-        print('No file part')
         return json.dumps({
             "status": "400",
             "message": "no file part"
         })
     
     f = request.files['file']
-    if f.filename == '':
-        print('No selected file')
-    else:
-        print('File received: ', f.filename)
     
     uuid_prefix = uuid.uuid4()
     file_name = secure_filename(f'{uuid_prefix}_{f.filename}')
@@ -92,7 +73,6 @@ def file_upload():
             "message": "Failed to upload file to S3"
         })
 
-    print("file data: ", request.form['model'])
     data = json.loads(request.form['model'])
 
     create_file_request = {

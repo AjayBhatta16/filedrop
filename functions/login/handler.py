@@ -1,3 +1,5 @@
+import datetime
+
 from shared_utils import encrypt_password, DataRepo, HttpException
 
 class LoginHandler():
@@ -60,11 +62,21 @@ class LoginHandler():
         print(f'{LOG_CONTEXT} - {len(user_files)} files found')
         
         return user_files
+    
+    def log_activity(self, user, ip_address):
+        user_copy = user.copy()
+
+        user_copy["lastAccessedIP"] = ip_address
+        user_copy["lastAccessedTime"] = datetime.datetime.utcnow().isoformat()
+
+        self.user_repo.update_item(user)
 
     def handle(self, req):
         user = self.get_user(req["username"])
 
         self.check_password(req["password"], user["password"])
+
+        self.log_activity(user, req["ipAddress"])
 
         user["files"] = self.get_user_files(user)
 

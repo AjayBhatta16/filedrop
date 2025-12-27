@@ -26,5 +26,8 @@ class DataRepo():
     def delete_item(self, item):
         return self.data.delete_one(item)
     
+    def update_item(self, item):
+        return self.data.replace_one({ "_id": item["_id"] }, item)
+    
     def get_queryable(self):
         return self.data
