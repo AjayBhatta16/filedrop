@@ -8,8 +8,8 @@ class HttpRequestMiddleware:
         self.activity_logger = ActivityLoggingService()
         self.action = action
 
-    def handle_lambda_event(self, event):
-        self.log_activity(event)
+    def handle_lambda_event(self, event, override_ip=False):
+        self.log_activity(event, override_ip=override_ip)
 
     def log_activity(self, event, override_ip=False):
         log_entry_builder = ActivityLogBuilder().with_lambda_event(event).with_action(self.action)
