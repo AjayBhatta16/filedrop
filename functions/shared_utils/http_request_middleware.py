@@ -11,10 +11,13 @@ class HttpRequestMiddleware:
     def handle_lambda_event(self, event):
         self.log_activity(event)
 
-    def log_activity(self, event):
+    def log_activity(self, event, overrride_ip=False):
         log_entry_builder = ActivityLogBuilder().with_lambda_event(event).with_action(self.action)
 
         req_body = json.loads(event.get("body", "{}"))
+
+        if overrride_ip == True:
+            log_entry_builder = log_entry_builder.with_override_ip(req_body["overrideIP"])
 
         if "displayName" in req_body:
             log_entry_builder = log_entry_builder.with_display_name(req_body["displayName"])

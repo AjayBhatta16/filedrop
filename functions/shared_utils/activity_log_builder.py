@@ -23,6 +23,10 @@ class ActivityLogBuilder:
         self.log["ipAddress"] = ip
         return self
     
+    def with_override_ip(self, ip):
+        self.log["ipAddress"] = ip
+        return self
+    
     def with_action(self, action):
         self.log["action"] = action
         return self

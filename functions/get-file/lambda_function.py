@@ -13,7 +13,7 @@ req_schema = RequestSchema("POST", ["displayID"])
 
 def lambda_handler(event, context):
     try:
-        middleware.handle_lambda_event(event)
+        middleware.handle_lambda_event(event, True)
         
         req_body = validate_request(event, req_schema)
 

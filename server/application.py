@@ -6,7 +6,6 @@ import os
 import boto3
 import uuid
 import requests
-import datetime
 
 application = Flask(__name__, static_folder='static')
 
@@ -15,6 +14,9 @@ s3_client = boto3.client('s3')
 js_env = {
     "baseURL": os.environ.get("API_GATEWAY_URL")
 }
+
+def get_user_ip(req):
+    return req.environ.get('HTTP_X_FORWARDED_FOR', req.environ['REMOTE_ADDR'])
 
 @application.route('/')
 def send_index():
@@ -80,7 +82,8 @@ def file_upload():
         "expDate": data['expDate'],
         "ownerID": data['ownerID'],
         "displayName": data['displayName'],
-        "storageURL": file_name
+        "storageURL": file_name,
+        "overrideIP": get_user_ip(request)
     }
 
     # forward request to Lambda
@@ -109,7 +112,8 @@ def file_upload():
 @application.route('/<fileID>', methods = ['GET'])
 def get_file(fileID):
     get_metadata_request = {
-        "displayID": fileID
+        "displayID": fileID,
+        "overrideIP": get_user_ip(request)
     }
 
     # call lambda function to get metadata
