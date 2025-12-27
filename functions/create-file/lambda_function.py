@@ -2,17 +2,20 @@ import os
 import json
 
 from handler import CreateFileHandler
-from shared_utils import DataRepo, FileRepo, HttpException, RequestSchema, validate_request
+from shared_utils import DataRepo, FileRepo, HttpException, HttpRequestMiddleware, RequestSchema, validate_request
 
 file_metadata_repo = DataRepo(os.environ.get("FILE_METADATA_CONTAINER_ID"))
 file_storage_repo = FileRepo()
 
 req_handler = CreateFileHandler(file_metadata_repo, file_storage_repo)
 
+middleware = HttpRequestMiddleware("CREATE_FILE")
 req_schema = RequestSchema("POST", ["type", "expDate", "ownerID", "displayName", "storageURL"])
 
 def lambda_handler(event, context):
     try:
+        middleware.handle_lambda_event(event)
+
         req_body = validate_request(event, req_schema)
 
         result = req_handler.handle(req_body)

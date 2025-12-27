@@ -6,6 +6,7 @@ import os
 import boto3
 import uuid
 import requests
+import datetime
 
 application = Flask(__name__, static_folder='static')
 
@@ -16,7 +17,6 @@ js_env = {
     "baseURL": os.environ.get("API_GATEWAY_URL")
 }
 
-"""
 def log_IP(req, action, fileID):
     ip = ""
     if req.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -26,11 +26,9 @@ def log_IP(req, action, fileID):
     log = {
         "action": action,
         "fileID": fileID,
-        "IPAddress": ip,
+        "ipAddress": ip,
         "timestamp": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     }
-    iplogs.insert_one(log) 
-"""
 
 @application.route('/')
 def send_index():

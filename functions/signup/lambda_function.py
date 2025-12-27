@@ -2,15 +2,18 @@ import os
 import json
 
 from handler import SignupHandler
-from shared_utils import DataRepo, HttpException, RequestSchema, validate_request
+from shared_utils import DataRepo, HttpException, HttpRequestMiddleware, RequestSchema, validate_request
 
 user_repo = DataRepo(os.environ.get("USER_CONTAINER_ID"))
 req_handler = SignupHandler(user_repo)
 
+middleware = HttpRequestMiddleware("USER_SIGNUP")
 req_schema = RequestSchema("POST", ["username", "email", "password"])
 
 def lambda_handler(event, context):
     try:
+        middleware.handle_lambda_event(event)
+
         req_body = validate_request(event, req_schema)
 
         result = req_handler.handle(req_body)

@@ -13,24 +13,29 @@ Environment variables used:
 Resource: signup lambda
 Environment variables used:
     - USER_CONTAINER_ID
+    - LOG_CONTAINER_ID
 
 Resource: login lambda
 Environment variables used:
     - USER_CONTAINER_ID
     - FILE_METADATA_CONTAINER_ID
+    - LOG_CONTAINER_ID
 
 Resource: create file lambda
 Environment variables used:
     - FILE_METADATA_CONTAINER_ID
+    - LOG_CONTAINER_ID
 
 Resource: get file lambda
 Environment variables used:
     - FILE_METADATA_CONTAINER_ID
+    - LOG_CONTAINER_ID
 
 Resource: delete file lambda
 Environment variables used:
     - FILE_METADATA_CONTAINER_ID
     - S3_BUCKET_NAME
+    - LOG_CONTAINER_ID
 
 Resource: cleanup timer lambda
 Environment variables used:

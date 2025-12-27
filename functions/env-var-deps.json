@@ -3,7 +3,8 @@
         "MONGO_CONNECTION_STRING",
         "DATABASE_NAME",
         "PASSWORD_SALT",
-        "S3_BUCKET_NAME"
+        "S3_BUCKET_NAME",
+        "LOG_CONTAINER_ID"
     ],
     "functions": {
         "filedrop-file-create": [

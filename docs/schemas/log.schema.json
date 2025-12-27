@@ -14,6 +14,10 @@
             "type": "string",
             "description": "The unique identifier of the file involved in the log entry."
         },
+        "displayName": {
+            "type": "string",
+            "description": "The display name of the file associated with the log entry."
+        },
         "action": {
             "type": "string",
             "description": "A brief description of the action performed."
