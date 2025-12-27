@@ -22,6 +22,12 @@ class HttpRequestMiddleware:
         if "fileID" in req_body:
             log_entry_builder = log_entry_builder.with_file_id(req_body["fileID"])
 
+        if "displayID" in req_body:
+            log_entry_builder = log_entry_builder.with_file_id(req_body["displayID"])
+
+        if "name" in req_body:
+            log_entry_builder = log_entry_builder.with_display_name(req_body["name"])
+
         if "username" in req_body:
             log_entry_builder = log_entry_builder.with_username(req_body["username"])
 

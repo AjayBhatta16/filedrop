@@ -19,11 +19,7 @@ class ActivityLogBuilder:
         return self
     
     def with_lambda_event(self, event):
-        ip = ""
-        if 'headers' in event and 'X-Forwarded-For' in event['headers']:
-            ip = event['headers']['X-Forwarded-For']
-        elif 'requestContext' in event and 'identity' in event['requestContext'] and 'sourceIp' in event['requestContext']['identity']:
-            ip = event['requestContext']['identity']['sourceIp']
+        ip = event["requestContext"]["http"]["sourceIp"]
         self.log["ipAddress"] = ip
         return self
     
