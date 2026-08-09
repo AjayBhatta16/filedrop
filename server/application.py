@@ -15,6 +15,8 @@ js_env = {
     "baseURL": os.environ.get("API_GATEWAY_URL")
 }
 
+ORIGIN_SECRET = os.environ.get("ORIGIN_SECRET")
+
 def get_user_ip(req):
     return req.environ.get('HTTP_X_FORWARDED_FOR', req.environ['REMOTE_ADDR']).split(',')[0]
 
@@ -92,7 +94,8 @@ def file_upload():
         f"{API_GATEWAY_URL}/filedrop-file-create", 
         json.dumps(create_file_request), 
         headers={
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-origin-verify': ORIGIN_SECRET,
         }
     )
 
@@ -122,7 +125,8 @@ def get_file(fileID):
         f"{API_GATEWAY_URL}/filedrop-file-get-metadata", 
         json.dumps(get_metadata_request), 
         headers={
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-origin-verify': ORIGIN_SECRET,
         }
     )
 

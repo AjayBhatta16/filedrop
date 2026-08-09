@@ -9,6 +9,7 @@ Environment variables used:
     - DATABASE_NAME
     - PASSWORD_SALT
     - S3_BUCKET_NAME
+    - ORIGIN_SECRET
 
 Resource: signup lambda
 Environment variables used:
