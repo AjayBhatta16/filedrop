@@ -176,6 +176,25 @@ app.controller("dashboardCtrl", ['$scope', '$http', function($scope, $http) {
     $scope.scrollBack = (event) => {
         event.target.scroll({left: 0})
     }
+    $scope.shouldDisplayDonationDialog = () => {
+        const lastDonationDialogDisplayTime = localStorage.getItem('lastDonationDialogDisplayTime')
+
+        if (!lastDonationDialogDisplayTime) {
+            return true
+        }
+
+        const timeSinceLastDisplay = Date.now() - lastDonationDialogDisplayTime
+        const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000
+
+        if (timeSinceLastDisplay > oneWeekInMilliseconds) {
+            return true
+        }
+
+        return false
+    }
+    $scope.updateDonationDialogDisplayTime = () => {
+        localStorage.setItem('lastDonationDialogDisplayTime', Date.now())
+    }
 }])
 
 app.controller("newfileCtrl", ['$scope', '$http', function($scope, $http) {

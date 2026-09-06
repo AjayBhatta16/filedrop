@@ -94,5 +94,33 @@
             </div>
         </div>
     </div>
+    <div ng-if="shouldDisplayDonationDialog()" class="modal fade show" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false" style="display: block;" ng-init="$('#staticBackdrop').modal('show')">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">BRO PLEEEEASE 🙏</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="updateDonationDialogDisplayTime()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>I need your support to keep this project alive!</h6>
+                    <p>Hey there File Dropper, I'm glad you are enjoying this service. I hope to offer it to you free of charge for years to come.</p>
+                    <p>However, I am hosting this on AWS and that ain't cheap! It currently costs me about $18 per month, and that will increase as more users join.</p>
+                    <p>I am asking for a small donation to help me keep this service running. If you can spare a few bucks, I would greatly appreciate it!</p>
+                    <a href="https://www.buymeacoffee.com/ajaybhatta49" target="_blank" class="d-flex justify-content-center" ng-click="updateDonationDialogDisplayTime()">
+                        <img 
+                            src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" 
+                            alt="Buy Me a Coffee" 
+                            style="height: 37px !important;width: 150px !important;" 
+                        >
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="updateDonationDialogDisplayTime()">No Thanks</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
