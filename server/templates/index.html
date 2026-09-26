@@ -45,7 +45,7 @@
     <link rel="canonical" href="https://filedrop.cc/">
 </head>
 <body ng-app="MyApp" ng-controller="homeCtrl">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md fixed-top">
         <!-- Brand -->
         <a class="navbar-brand title-text" href="/">
             <img src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="30" height="30">
@@ -141,7 +141,24 @@
             </div>
         </div>
     </div>
-    <div class="container text-white landing-page-segment"></div>
+    <div class="container text-white landing-page-segment">
+        <div class="d-flex flex-column mt-5 w-75 mx-auto title-text">
+            <h1 class="text-center mb-4">About</h1>
+            <p>
+                FileDrop will help you transfer files frictionlessly with a simple 3-step process:
+            </p>
+            <ol>
+                <li class="mt-3">Upload your file from the device it is currently stored on</li>
+                <li class="mt-3">Save your 8-digit code</li>
+                <li class="mt-3">Download the file from anywhere by entering the code on our home page</li>
+            </ol>
+            <p class="mt-5">
+                This process allows your file to be accessed from anywhere using any device.
+                It is perfect for transferring files between devices, managing school presentations,
+                and more!
+            </p>
+        </div>
+    </div>
     <div class="container text-white landing-page-segment"></div>
 </body>
 </html>

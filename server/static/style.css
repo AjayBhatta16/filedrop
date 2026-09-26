@@ -2,9 +2,15 @@
 body, html {
     background-color: black;
 }
+
+body {
+    padding-top: 60px;
+}
+
 .title-text {
     font-family: 'Comfortaa', cursive;
 }
+
 input[type="text"] {
     line-height: 1.5;
 }
