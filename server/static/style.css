@@ -106,3 +106,15 @@ a.terms-link {
 .style-card {
     height: 200px;
 }
+
+@media (min-width: 600px) {
+    .footer-link-column {
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-link-column {
+        margin-right: 15px;
+    }
+}
