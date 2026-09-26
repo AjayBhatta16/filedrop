@@ -2,9 +2,15 @@
 body, html {
     background-color: black;
 }
+
+body {
+    padding-top: 60px;
+}
+
 .title-text {
     font-family: 'Comfortaa', cursive;
 }
+
 input[type="text"] {
     line-height: 1.5;
 }
@@ -35,6 +41,14 @@ svg {
 .rem-11 {
     font-size: 1.1rem;
     color: #e7740e;
+}
+
+.text-filedrop-orange {
+    color: #e7740e;
+}
+
+.text-filedrop-blue {
+    color: #00e;
 }
 
 .rem-9 {
@@ -78,4 +92,34 @@ a.terms-link {
 .terms {
     width: 220px;
     color: #aaa;
+}
+
+.landing-page-segment {
+    min-height: 100vh;
+    overflow-y: visible;
+}
+
+.page-container {
+    min-height: 100vh;
+    overflow-y: visible;
+}
+
+.instruction-card {
+    height: 200px;
+}
+
+.style-card {
+    height: 200px;
+}
+
+@media (min-width: 600px) {
+    .footer-link-column {
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-link-column {
+        margin-right: 15px;
+    }
 }

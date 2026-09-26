@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.1.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="{{ url_for('static', filename = 'app.js') }}"></script>
     <!-- Latest compiled and minified CSS -->
@@ -44,7 +45,7 @@
     <link rel="canonical" href="https://filedrop.cc/">
 </head>
 <body ng-app="MyApp" ng-controller="homeCtrl">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md fixed-top">
         <!-- Brand -->
         <a class="navbar-brand title-text" href="/">
             <img src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="30" height="30">
@@ -99,9 +100,9 @@
             </ul>
         </div>
     </nav>
-    <div class="container text-white p-5 mt-5 text-center" ng-app="MyApp" ng-controller="homeCtrl">
+    <div class="container text-white p-5 mt-5 text-center landing-page-segment" ng-app="MyApp" ng-controller="homeCtrl">
         <img class="mb-4" src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="100" height="100">
-        <h1 class="title-text">Download now</h1>
+        <h1 class="title-text">Your Thumb-Drive in the Cloud</h1>
         <p class="title-text mb-5">Enter a code to download a file anonymously</p>
         <div class="mb-4">
             <input class="px-2 py-1 mb-4" id="filecode" name="filecode" ng-model="filecode" ng-change="handleChange()" type="text" placeholder="Enter your 8-Digit code here">
@@ -109,5 +110,148 @@
         </div>
         <small class="text-danger text-left mt-5 pt-5 font-weight-light" id="error-text">[[errorText]]</small><br>
     </div>
+    <div class="container text-white landing-page-segment">
+        <div class="d-flex flex-column align-items-center mt-5">
+            <h1 class="title-text">Instructions</h1>
+            <div class="card-deck mt-5">
+                <div class="card instruction-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-orange">
+                            <i class="fa-solid fa-upload fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">Upload Your File</h5>
+                    </div>
+                </div>
+                <div class="card instruction-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-orange">
+                            <i class="fa-solid fa-paper-plane fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">Save & Share The Code</h5>
+                    </div>
+                </div>
+                <div class="card instruction-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-orange">
+                            <i class="fa-solid fa-globe fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">Access It Anywhere</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-white landing-page-segment">
+        <div class="d-flex flex-column mt-5 w-75 mx-auto title-text">
+            <h1 class="text-center mb-4">About</h1>
+            <p>
+                FileDrop will help you transfer files frictionlessly with a simple 3-step process:
+            </p>
+            <ol>
+                <li class="mt-3">Upload your file from the device it is currently stored on</li>
+                <li class="mt-3">Save your 8-digit code</li>
+                <li class="mt-3">Download the file from anywhere by entering the code on our home page</li>
+            </ol>
+            <p class="mt-3">
+                This process allows your file to be accessed from anywhere using any device.
+                It is perfect for transferring files between devices, managing school presentations,
+                and more!
+            </p>
+        </div>
+    </div>
+    <div class="container text-white landing-page-segment">
+        <div class="d-flex flex-column mt-5 w-75 mx-auto title-text pb-5 mb-5">
+            <h1 class="title-text text-center">Features</h1>
+            <div class="card-deck mt-5">
+                <div class="card feature-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-blue">
+                            <i class="fa-brands fa-usb fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">
+                            Cloud Based Thumb-Drive
+                        </h5>
+                    </div>
+                </div>
+                <div class="card feature-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-blue">
+                            <i class="fa-solid fa-stopwatch fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">
+                            Customizable Deletion Schedule
+                        </h5>
+                    </div>
+                </div>
+                <div class="card feature-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-blue">
+                            <i class="fa-solid fa-user-secret fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">
+                            Access Files Without Logging In
+                        </h5>
+                    </div>
+                </div>
+                <div class="card feature-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-blue">
+                            <i class="fa-solid fa-display fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">
+                            Frictionless Dashboard
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer bg-dark px-5 py-4 title-text text-white">
+        <div class="d-flex flex-row flex-wrap w-100">
+            <div class="d-flex flex-column mr-auto mb-5">
+                <a 
+                    class="navbar-brand" 
+                    href="#"
+                >
+                    <img 
+                        src="{{ url_for('static', filename = 'logo.png') }}" 
+                        width="35"
+                        height="35" 
+                        class="d-inline-block align-top mr-2" alt="FileDrop Logo"
+                    />
+                    FileDrop
+                </a>
+                <h6 class="mt-3">Your Thumb-Drive In The Cloud</h6>
+            </div>
+            <div class="d-flex flex-column mb-5 footer-link-column">
+                <h6>About</h6>
+                <a href="https://filedrop.cc/static/terms.pdf" target="_blank">
+                    Terms of Service
+                </a>
+                <a href="https://github.com/AjayBhatta16/filedrop" target="_blank">
+                    Source Code 
+                </a>
+            </div>
+            <div class="d-flex flex-column mb-5 footer-link-column">
+                <h6>Help</h6>
+                <a href="https://github.com/users/AjayBhatta16/projects/7" target="_blank">
+                    Report a Problem
+                </a>
+                <a href="https://github.com/users/AjayBhatta16/projects/8" target="_blank">
+                    Request a Feature
+                </a>
+            </div>
+            <div class="d-flex flex-column mb-5 footer-link-column">
+                <h6>Support</h6>
+                <a href="https://www.buymeacoffee.com/ajaybhatta49" target="_blank">
+                    Buy me a Coffee
+                </a>
+            </div>
+        </div>
+        <hr/>
+        <p class="mt-5">FileDrop is developed and maintained by Ajay Bhattacharyya. Learn more at
+            <a href="https://ajaybhattacharyya.com" target="_blank">ajaybhattacharyya.com</a>
+        </p>
+    </footer>
 </body>
 </html>
