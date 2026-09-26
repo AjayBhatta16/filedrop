@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.1.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="{{ url_for('static', filename = 'app.js') }}"></script>
     <!-- Latest compiled and minified CSS -->
@@ -99,7 +100,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container text-white p-5 mt-5 text-center" ng-app="MyApp" ng-controller="homeCtrl">
+    <div class="container text-white p-5 mt-5 text-center landing-page-segment" ng-app="MyApp" ng-controller="homeCtrl">
         <img class="mb-4" src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="100" height="100">
         <h1 class="title-text">Your Thumb-Drive in the Cloud</h1>
         <p class="title-text mb-5">Enter a code to download a file anonymously</p>
@@ -109,5 +110,38 @@
         </div>
         <small class="text-danger text-left mt-5 pt-5 font-weight-light" id="error-text">[[errorText]]</small><br>
     </div>
+    <div class="container text-white landing-page-segment">
+        <div class="d-flex flex-column align-items-center mt-5">
+            <h1 class="title-text">Instructions</h1>
+            <div class="card-deck mt-5">
+                <div class="card instruction-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-orange">
+                            <i class="fa-solid fa-upload fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">Upload Your File</h5>
+                    </div>
+                </div>
+                <div class="card instruction-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-orange">
+                            <i class="fa-solid fa-paper-plane fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">Save & Share The Code</h5>
+                    </div>
+                </div>
+                <div class="card instruction-card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <div class="text-center mb-5 mt-3 text-filedrop-orange">
+                            <i class="fa-solid fa-globe fa-2xl"></i>
+                        </div>
+                        <h5 class="card-title text-center title-text mt-5">Access It Anywhere</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-white landing-page-segment"></div>
+    <div class="container text-white landing-page-segment"></div>
 </body>
 </html>
