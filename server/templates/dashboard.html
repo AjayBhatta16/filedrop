@@ -22,7 +22,7 @@
     <title>Dashboard | FileDrop</title>
 </head>
 <body ng-app="MyApp" ng-controller="dashboardCtrl">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark shadow-md fixed-top">
         <!-- Brand -->
         <a class="navbar-brand title-text" href="/">
             <img src="{{ url_for('static', filename = 'logo.png') }}" alt="logo" width="30" height="30">
@@ -58,7 +58,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container text-white p-5 mt-5 text-center">
+    <div class="container text-white page-container p-5 mt-5 text-center">
         <h1 class="title-text">Dashboard</h1>
         <div ng-if="files.length == 0">
             <h6 class="title-text mt-5 mb-4">You currently have no active files</h6>
@@ -94,6 +94,53 @@
             </div>
         </div>
     </div>
+    <footer class="footer bg-dark px-5 py-4 title-text text-white">
+        <div class="d-flex flex-row flex-wrap w-100">
+            <div class="d-flex flex-column mr-auto mb-5">
+                <a 
+                    class="navbar-brand" 
+                    href="#"
+                >
+                    <img 
+                        src="{{ url_for('static', filename = 'logo.png') }}" 
+                        width="35"
+                        height="35" 
+                        class="d-inline-block align-top mr-2" alt="FileDrop Logo"
+                    />
+                    FileDrop
+                </a>
+                <h6 class="mt-3">Your Thumb-Drive In The Cloud</h6>
+            </div>
+            <div class="d-flex flex-column mb-5 footer-link-column">
+                <h6>About</h6>
+                <a href="https://filedrop.cc/static/terms.pdf" target="_blank">
+                    Terms of Service
+                </a>
+                <a href="https://github.com/AjayBhatta16/filedrop" target="_blank">
+                    Source Code 
+                </a>
+            </div>
+            <div class="d-flex flex-column mb-5 footer-link-column">
+                <h6>Help</h6>
+                <a href="https://github.com/users/AjayBhatta16/projects/7" target="_blank">
+                    Report a Problem
+                </a>
+                <a href="https://github.com/users/AjayBhatta16/projects/8" target="_blank">
+                    Request a Feature
+                </a>
+            </div>
+            <div class="d-flex flex-column mb-5 footer-link-column">
+                <h6>Support</h6>
+                <a href="https://www.buymeacoffee.com/ajaybhatta49" target="_blank">
+                    Buy me a Coffee
+                </a>
+            </div>
+        </div>
+        <hr/>
+        <p class="mt-5">FileDrop is developed and maintained by Ajay Bhattacharyya. Learn more at
+            <a href="https://ajaybhattacharyya.com" target="_blank">ajaybhattacharyya.com</a>
+        </p>
+    </footer>
     <div ng-if="shouldDisplayDonationDialog()" class="modal fade show" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false" style="display: block;" ng-init="$('#staticBackdrop').modal('show')">
         <div class="modal-dialog">
             <div class="modal-content bg-dark text-white">

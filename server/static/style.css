@@ -99,6 +99,11 @@ a.terms-link {
     overflow-y: visible;
 }
 
+.page-container {
+    min-height: 100vh;
+    overflow-y: visible;
+}
+
 .instruction-card {
     height: 200px;
 }
